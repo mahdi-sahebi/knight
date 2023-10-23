@@ -1,7 +1,6 @@
 #include "file.hpp"
 
-static const std::ios_base::openmode OPEN_MODE =
-  std::ios::in | std::ios::out | std::ios::binary;
+constexpr std::ios_base::openmode OPEN_MODE = std::ios::in | std::ios::out | std::ios::binary;
 
 bool CFile::Open(std::string const _path)
 {
