@@ -25,8 +25,9 @@ public:
   Player() = delete;
   ~Player();
   bool isEnemy(const Player& _player);
-  virtual bool canGo(uint8_t _column, uint8_t _row) = 0;
-  virtual bool move(uint8_t _column, uint8_t _row) = 0;
+  bool canHit(const Player& _player);
+  bool move(uint8_t _column, uint8_t _row);
+  virtual bool canGoTo(uint8_t _column, uint8_t _row) = 0;
 
   mutable Type m_type;
   mutable Color m_color;
