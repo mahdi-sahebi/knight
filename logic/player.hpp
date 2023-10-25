@@ -24,6 +24,7 @@ public:
   Player(Player::Type _type, Player::Color _color, uint8_t _score);
   Player() = delete;
   ~Player();
+  bool isEnemy(const Player& _player);
   virtual bool canGo(uint8_t _column, uint8_t _row) = 0;
   virtual bool move(uint8_t _column, uint8_t _row) = 0;
 

@@ -10,3 +10,8 @@ Player::~Player()
 {
 
 }
+
+bool Player::isEnemy(const Player& _player)
+{
+  return (m_color != _player.m_color);
+}
