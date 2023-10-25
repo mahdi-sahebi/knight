@@ -1,4 +1,4 @@
-#include "grid.hpp"
+﻿#include "grid.hpp"
 
 
 Row& operator++(Row& _row)
@@ -24,6 +24,7 @@ Column& operator--(Column& _col)
   _col = static_cast<Column>(static_cast<uint8_t>(_col) - 1);
   return _col;
 }
+
 
 
 Grid* Grid::m_instance = nullptr;
