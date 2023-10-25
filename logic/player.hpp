@@ -6,12 +6,14 @@
 
 class Player
 {
-  enum Type
+  enum Type : uint8_t
   {
-    QUEEN,
-    KING,
-    SOLDIER,
-    HORSE,// TODO(MN): Complete types and arrange as the screo
+    PAWN = 1,
+    BISHOP = 2,
+    KNIGHT = 3,
+    ROOK = 5,
+    QUEEN = 10,
+    KING = uint8_t(-1),
   };
 
   enum Color
