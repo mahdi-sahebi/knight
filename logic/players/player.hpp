@@ -23,13 +23,13 @@ class Player
   };
 
 public:
-  Player(Player::Type _type, Player::Color _color, uint8_t _score);
+  Player(const Player::Type _type, const Player::Color _color, const uint8_t _score);
   Player() = delete;
   ~Player();
   bool isEnemy(const Player& _player);
   bool canHit(const Player& _player);
-  bool move(uint8_t _column, uint8_t _row);
-  virtual bool canGoTo(uint8_t _column, uint8_t _row) = 0;
+  bool move(const uint8_t _column, const uint8_t _row);
+  virtual bool canGoTo(const uint8_t _column, const uint8_t _row) = 0;
 
   mutable Type m_type;
   mutable Color m_color;
