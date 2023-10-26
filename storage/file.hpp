@@ -8,21 +8,16 @@ class CFile : public IStorage
 {
 public: 
   CFile();
-  bool     Open   (std::string const _path);
-  bool     IsOpen ();
-  uint32_t GetSize();
-  void     Clear  ();
-  void     Delete ();
-  uint32_t Read   (void*const _dst,       uint32_t const _size);
-  uint32_t Write  (void const*const _src, uint32_t const _size);
-  void     Append (void const*const _src, uint32_t const _size);
-  void     Close  ();
+  bool     open   (std::string const _path) override;
+  bool     isOpen () override;
+  uint32_t getSize() override;
+  void     clear  () override;
+  uint32_t read   (void*const _dst,       uint32_t const _size) override;
+  uint32_t write  (void const*const _src, uint32_t const _size) override;
+  void     close  () override;
+  mutable std::string  m_path;
 
-  static void GetSize(std::string const _path);
-  static void Clear  (std::string const _path);
-  static void Delete (std::string const _path);
 private:
-  std::string  m_path;
   std::fstream m_file;
 };
 
