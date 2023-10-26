@@ -6,7 +6,7 @@
 class Knight : public Player
 {
 public:
-  bool canGoTo(const uint8_t _column, const uint8_t _row) override;
+  bool canGoTo(const Column _column, const Row _row) override;
 private:
 };
 

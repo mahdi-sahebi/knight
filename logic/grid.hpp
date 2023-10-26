@@ -4,7 +4,7 @@
 #include <cstdbool>
 #include <cstdint>
 #include "location.hpp"
-//#include "player/player.hpp"
+#include "players/player.hpp"
 
 class Grid
 {
@@ -17,7 +17,7 @@ private:
   void clear();
 
   static Grid* m_instance;
-  Player m_grids[COL_COUNT][ROW_COUNT];
+  Player* m_grids[COL_COUNT][ROW_COUNT];
 };
 
 #endif /* __GRID_H__ */

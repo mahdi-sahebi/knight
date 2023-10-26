@@ -16,7 +16,7 @@ bool Player::isEnemy(const Player& _player)
   return (m_color != _player.m_color);
 }
 
-bool Player::move(const uint8_t _column, const uint8_t _row)
+bool Player::move(const Column _column, const Row _row)
 {
   bool const isValidMove = canGoTo(_column, _row);
 
