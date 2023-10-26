@@ -31,17 +31,8 @@ uint32_t CFile::GetSize()
 
 void CFile::Clear()
 {
-  if (m_file.is_open())
-  {
-    m_file.close();
-    m_file.open(m_path, std::ios::trunc);
-    m_file.close();
-    m_file.open(m_path, OPEN_MODE);
-  }
-  else
-  {
-    // TODO(MN): Error
-  }
+  if (std::filesystem::exists(m_path))
+    std::filesystem::resize_file(m_path, 0);
 }
 
 uint32_t CFile::Read(void*const _dst, uint32_t const _size)
