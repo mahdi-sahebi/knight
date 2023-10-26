@@ -3,7 +3,7 @@
 
 constexpr std::ios_base::openmode OPEN_MODE = std::ios::in | std::ios::out | std::ios::binary;
 
-bool CFile::Open(std::string const _path)
+bool CFile::open(std::string const _path)
 {
   const bool result = std::filesystem::exists(_path);
 
@@ -19,81 +19,49 @@ bool CFile::Open(std::string const _path)
   return result;
 }
 
-bool CFile::IsOpen()
+bool CFile::isOpen()
 {
   return m_file.is_open();
 }
 
-uint32_t CFile::GetSize()
+uint32_t CFile::getSize()
 {
   return std::filesystem::file_size(m_path);
 }
 
-void CFile::Clear()
+void CFile::clear()
 {
   if (std::filesystem::exists(m_path))
     std::filesystem::resize_file(m_path, 0);
 }
 
-uint32_t CFile::Read(void*const _dst, uint32_t const _size)
+uint32_t CFile::read(void*const _dst, uint32_t const _size)
 {
+  uint32_t readSize =  _size;
+
   if (m_file.is_open())
-  {
     m_file.read((char*)_dst, _size);
-  }
   else
-  {
-    // TODO(MN): Error
-  }
+    readSize = 0;
 
   return 0;
 }
 
-uint32_t CFile::Write(void const*const _src, uint32_t const _size)
+uint32_t CFile::write(void const*const _src, uint32_t const _size)
 {
+  uint32_t writtenSize = _size;
+
   if (m_file.is_open())
-  {
-    m_file.write((char*)_src, _size);
-  }
+     m_file.write((char*)_src, _size);
   else
-  {
-    // TODO(MN): Error
-  }
+    writtenSize = 0;
 
   return 0;
 }
 
-void CFile::Append(void const*const _src, uint32_t const _size)
+void CFile::close()
 {
   if (m_file.is_open())
-  {
-    // TODO(MN): Implement
-  }
-  else
-  {
-    // TODO(MN): Error
-  }
-}
-
-void CFile::Close()
-{
-  if (m_file.is_open())
-  {
     m_file.close();
-  }
-}
-
-void CFile::GetSize(std::string const _path)
-{
-    
-}
-
-void CFile::Clear(std::string const _path)
-{
-    
-}
-
-void CFile::Delete(std::string const _path)
-{
-    
+  m_path = "";
 }
