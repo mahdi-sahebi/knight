@@ -7,6 +7,7 @@
 
 class Player
 {
+public:
   enum Type : uint8_t
   {
     PAWN = 1,
@@ -23,8 +24,7 @@ class Player
     White
   };
 
-public:
-  Player(const Player::Type _type, const Player::Color _color, const uint8_t _score);
+  Player(const Player::Type _type, const Player::Color _color);
   Player() = delete;
   ~Player();
   bool isEnemy(const Player& _player);

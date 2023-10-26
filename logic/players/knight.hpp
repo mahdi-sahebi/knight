@@ -6,6 +6,8 @@
 class Knight : public Player
 {
 public:
+  Knight(const Player::Color _color);
+  ~Knight();
   bool canGoTo(const Column _column, const Row _row) override;
 private:
 };

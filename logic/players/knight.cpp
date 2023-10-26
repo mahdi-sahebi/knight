@@ -1,6 +1,16 @@
 #include <cmath>
 #include "knight.hpp"
 
+Knight::Knight(const Player::Color _color) : Player(Player::KNIGHT, _color)
+{
+
+}
+
+Knight::~Knight()
+{
+
+}
+
 bool Knight::canGoTo(const Column _column, const Row _row)
 {
   bool isValidMove = false;

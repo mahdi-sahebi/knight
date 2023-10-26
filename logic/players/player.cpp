@@ -1,7 +1,7 @@
 #include "player.hpp"
 
-Player::Player(const Player::Type _type, const Player::Color _color, const uint8_t _score) :
-  m_type(_type), m_color(_color), m_score(_score)
+Player::Player(const Player::Type _type, const Player::Color _color) :
+  m_type(_type), m_color(_color), m_score(_type)
 {
 
 }
