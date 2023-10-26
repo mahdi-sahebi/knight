@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <cstdbool>
+#include <logic/location.hpp>
 
 class Player
 {
@@ -33,8 +34,8 @@ public:
 
   mutable Type m_type;
   mutable Color m_color;
-  mutable uint8_t m_row; // TODO(MN): use row/col data type
-  mutable uint8_t m_column;
+  mutable Row m_row;
+  mutable Column m_column;
   mutable uint8_t m_score;
 private:
 };

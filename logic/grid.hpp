@@ -17,7 +17,7 @@ private:
   void clear();
 
   static Grid* m_instance;
-  int m_grids[COL_COUNT][ROW_COUNT]; // TODO(MN): Data type
+  Player m_grids[COL_COUNT][ROW_COUNT];
 };
 
 #endif /* __GRID_H__ */

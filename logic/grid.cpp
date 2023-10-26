@@ -24,10 +24,10 @@ void Grid::clear()
 {
   for (Column col = COL_A; col < COL_COUNT; ++col)
     for (Row row = ROW_8; row < ROW_COUNT; ++row)
-      m_grids[col][row] = 0;// TODO(MN): Default value
+      m_grids[col][row] = nullptr;
 }
 
 bool Grid::isEmpty(const Column _column, const Row _row)
 {
-  return (0 == m_grids[_column][_row]);
+  return (nullptr == m_grids[_column][_row]);
 }
