@@ -17,12 +17,12 @@ public:
   uint32_t Write  (void const*const _src, uint32_t const _size) override;
   void     Append (void const*const _src, uint32_t const _size) override;
   void     Close  () override;
+  mutable std::string  m_path;
 
 //  static void GetSize(std::string const _path);
 //  static void Clear  (std::string const _path);
 //  static void Delete (std::string const _path);
 private:
-  std::string  m_path;
   std::fstream m_file;
 };
 

@@ -13,6 +13,7 @@ bool CFile::Open(std::string const _path)
       m_file.close();
 
     m_file.open(_path, OPEN_MODE);
+    m_path = _path;
   }
 
   return result;
@@ -25,21 +26,7 @@ bool CFile::IsOpen()
 
 uint32_t CFile::GetSize()
 {
-  uint32_t fileSize = 0;
-
-  if (true == m_file.is_open())
-  {
-    uint32_t const lastPos = m_file.tellg();
-    m_file.seekg(0, std::ios::end);
-    fileSize = m_file.tellg(); 
-    m_file.seekg(lastPos, std::ios::beg);
-  }
-  else
-  {
-    // TODO(MN): Error 
-  }
-  
-  return fileSize;
+  return std::filesystem::file_size(m_path);
 }
 
 void CFile::Clear()
