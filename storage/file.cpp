@@ -1,22 +1,21 @@
+#include <filesystem>
 #include "file.hpp"
 
 constexpr std::ios_base::openmode OPEN_MODE = std::ios::in | std::ios::out | std::ios::binary;
 
 bool CFile::Open(std::string const _path)
 {
-  bool isOpened = false;
+  const bool result = std::filesystem::exists(_path);
 
-  if (true == m_file.is_open())
+  if (result)
   {
-    // TODO(MN): Error
-  }
-  else
-  {
+    if (m_file.is_open())
+      m_file.close();
+
     m_file.open(_path, OPEN_MODE);
-    isOpened = true;
   }
-  
-  return isOpened;
+
+  return result;
 }
 
 bool CFile::IsOpen()
