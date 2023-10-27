@@ -1,9 +1,13 @@
 #include <iostream>
+#include <cstring>
+#include <logic/logic.hpp>
 
-using namespace std;
-
-int main()
+int main(int _n, char* _args[])
 {
-    cout << "Hello World!" << endl;
-    return 0;
+//  std::string filePath(_args[0]);
+  std::string filePath = "/home/mahdi/in.txt";
+  Logic logic(filePath);
+  logic.Solve();
+
+  return 0;
 }
