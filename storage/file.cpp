@@ -63,8 +63,11 @@ void File::read(std::string& _dstString)
 
   if (m_file.is_open())
   {
+    char buf[1024] = {0}; // TODO(MN): Remove it.
     const uint32_t size = getSize();
-    m_file.read((char*)_dstString.data(), size);
+//    m_file.read((char*)_dstString.c_str(), size);
+    m_file.read(buf, size);
+    _dstString = std::string(buf);
     _dstString.resize(size);
   }
 }
