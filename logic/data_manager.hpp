@@ -4,7 +4,6 @@
 #include <tuple>
 #include <vector>
 #include <cstdint>
-#include <string_view>
 #include <logic/location.hpp>
 #include <logic/players/player.hpp>
 
@@ -13,6 +12,7 @@ namespace Data
 
 struct PlayerInfo
 {
+  PlayerInfo(Player::Color _color, Player::Type _type, Location _location);
   Player::Color m_color;
   Player::Type  m_type;
   Location      m_location;
