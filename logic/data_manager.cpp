@@ -1,3 +1,5 @@
+#include <iterator>
+#include <algorithm>
 #include "data_manager.hpp"
 #include <storage/file.hpp>
           #include <iostream>
@@ -19,16 +21,33 @@ std::tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
     file.read(buffer);
             std::cout << buffer << std::endl;
 
-    const string LF = "\n";
     string temp = "";
-    int32_t itrBegin = 0;
-    int32_t itrEnd   = 0;
+    string::iterator itrBegin = begin(buffer);
+    string::iterator itrEnd   = end(buffer);
+
+    const auto isSpace = [](char _char)
+    {
+      return (' ' == _char);
+    };
+
+    const auto isLF = [](char _char)
+    {
+      return ('\n' == _char);
+    };
 
     /* Extract number of pieces. */
-    itrBegin = buffer.find(LF);
-    temp = buffer.substr(itrEnd, itrEnd - itrBegin);
-    uint8_t movements = atoi(temp.c_str());
-//    buffer.substr(
+    itrEnd = find_if(itrBegin, itrEnd, isLF);
+    temp = string(itrBegin, itrEnd);
+    itrBegin = itrEnd + 1;
+    const uint8_t playersNumber = atoi(temp.c_str());
+
+    for (uint8_t playerIdx = 0; playerIdx < playersNumber; playerIdx++)
+    {
+      /* Extract Color */
+//      buffer.find()
+//      itrBegin = std::find(std::begin(buffer) + itrBegin, )
+//      buffer.substr(itr)
+    }
 
     file.close();
   }
