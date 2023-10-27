@@ -5,7 +5,7 @@
 #include <vector>
 #include <cstdint>
 #include <string>
-#include <logic/players/player_manager.hpp>
+#include <players/player_manager.hpp>
 
 namespace Data
 {

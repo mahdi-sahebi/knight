@@ -3,7 +3,7 @@
 
 #include <cstdbool>
 #include <cstdint>
-#include "location.hpp"
+#include "common/location.hpp"
 #include "players/player.hpp"
 
 class Grid

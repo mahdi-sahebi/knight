@@ -10,7 +10,7 @@ PlayerInfo::PlayerInfo(Player::Color _color, Player::Type _type, Location _locat
 
 }
 
-Player* Generate(const PlayerInfo& _descriptor)
+Player* PlayerManager::Generate(const PlayerInfo& _descriptor)
 {
   Player* player = nullptr;
 
@@ -24,7 +24,7 @@ Player* Generate(const PlayerInfo& _descriptor)
   }
   else if (Player::Type::KNIGHT == _descriptor.m_type)
   {
-//    player = new
+//    player = new Knight(_descriptor.m_color);
   }
   else if (Player::Type::ROOK == _descriptor.m_type)
   {

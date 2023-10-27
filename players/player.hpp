@@ -3,7 +3,7 @@
 
 #include <cstdint>
 #include <cstdbool>
-#include <logic/location.hpp>
+#include <common/location.hpp>
 
 class Player
 {

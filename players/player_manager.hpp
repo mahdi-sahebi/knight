@@ -4,7 +4,7 @@
 
 #include "player.hpp"
 #include "knight.hpp"
-#include <logic/location.hpp>
+#include <common/location.hpp>
 
 
 namespace PlayerManager
