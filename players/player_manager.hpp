@@ -7,6 +7,7 @@
 #include "bishop.hpp"
 #include "knight.hpp"
 #include "rook.hpp"
+#include "queen.hpp"
 #include <common/location.hpp>
 
 
