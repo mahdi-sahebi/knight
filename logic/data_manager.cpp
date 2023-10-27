@@ -1,8 +1,11 @@
 #include "data_manager.hpp"
 #include <storage/file.hpp>
-
+          #include <iostream>
 using namespace Data;
 using namespace std;
+
+namespace Data
+{
 
 std::tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
 {
@@ -14,18 +17,23 @@ std::tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
   {
     string buffer;
     file.read(buffer);
+            std::cout << buffer << std::endl;
 
     const string LF = "\n";
     string temp = "";
-    uint16_t itrBegin = 0;
-    uint16_t itrEnd   = 0;
+    int32_t itrBegin = 0;
+    int32_t itrEnd   = 0;
 
     /* Extract number of pieces. */
     itrBegin = buffer.find(LF);
-    temp = buffer.substr(itrBegin, itrEnd - itrBegin);
-
+    temp = buffer.substr(itrEnd, itrEnd - itrBegin);
+    uint8_t movements = atoi(temp.c_str());
 //    buffer.substr(
+
+    file.close();
   }
 
   return data;
+}
+
 }

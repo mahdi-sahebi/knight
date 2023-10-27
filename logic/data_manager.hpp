@@ -18,7 +18,7 @@ struct PlayerInfo
   Location      m_location;
 };
 
-std::tuple<uint8_t, std::vector<PlayerInfo>> Import(const std::string_view _filePath);
+std::tuple<uint8_t, std::vector<PlayerInfo>> Import(const std::string _filePath);
 
 }
 
