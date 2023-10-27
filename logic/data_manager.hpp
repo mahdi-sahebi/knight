@@ -4,6 +4,7 @@
 #include <tuple>
 #include <vector>
 #include <cstdint>
+#include <string>
 #include <logic/location.hpp>
 #include <logic/players/player.hpp>
 
