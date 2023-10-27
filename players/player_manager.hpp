@@ -3,6 +3,8 @@
 
 
 #include "player.hpp"
+#include "pawn.hpp"
+#include "bishop.hpp"
 #include "knight.hpp"
 #include <common/location.hpp>
 

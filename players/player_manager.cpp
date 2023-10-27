@@ -18,9 +18,7 @@ Player* PlayerManager::Generate(const PlayerInfo& _descriptor)
   if (Player::Type::PAWN == _descriptor.m_type)
     player = new Knight(_descriptor.m_color);
   else if (Player::Type::BISHOP == _descriptor.m_type)
-  {
-
-  }
+    player = new Bishop(_descriptor.m_color);
   else if (Player::Type::KNIGHT == _descriptor.m_type)
     player = new Knight(_descriptor.m_color);
   else if (Player::Type::ROOK == _descriptor.m_type)
