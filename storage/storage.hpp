@@ -9,7 +9,8 @@
 class IStorage
 {
 public: 
-  virtual bool     open      (std::string const _path) = 0;
+  // TODO(MN): We could use std::string_view for performance if fstream::open() supported this.
+  virtual bool     open      (const std::string _path) = 0;
   virtual void     close     () = 0;
   virtual bool     isOpen    () = 0;
   virtual uint32_t read      (void*const _dst,       uint32_t const _size) = 0;

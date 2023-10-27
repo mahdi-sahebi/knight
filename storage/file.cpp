@@ -3,7 +3,7 @@
 
 constexpr std::ios_base::openmode OPEN_MODE = std::ios::in | std::ios::out | std::ios::binary;
 
-bool File::open(std::string const _path)
+bool File::open(const std::string _path)
 {
   const bool result = std::filesystem::exists(_path);
 

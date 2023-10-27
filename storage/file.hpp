@@ -8,7 +8,7 @@ class File : public IStorage
 {
 public: 
   File();
-  bool     open   (std::string const _path) override;
+  bool     open   (const std::string _path) override;
   bool     isOpen () override;
   uint32_t getSize() override;
   void     clear  () override;
