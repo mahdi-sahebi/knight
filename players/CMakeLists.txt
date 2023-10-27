@@ -1,5 +1,6 @@
 add_library(players STATIC
   player.hpp player.cpp
+  pawn.hpp pawn.cpp
   knight.hpp knight.cpp
   player_manager.hpp player_manager.cpp)
 

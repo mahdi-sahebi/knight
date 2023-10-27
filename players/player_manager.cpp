@@ -14,18 +14,15 @@ Player* PlayerManager::Generate(const PlayerInfo& _descriptor)
 {
   Player* player = nullptr;
 
+  // TODO(MN): Use open-close principle
   if (Player::Type::PAWN == _descriptor.m_type)
-  {
-
-  }
+    player = new Knight(_descriptor.m_color);
   else if (Player::Type::BISHOP == _descriptor.m_type)
   {
 
   }
   else if (Player::Type::KNIGHT == _descriptor.m_type)
-  {
-//    player = new Knight(_descriptor.m_color);
-  }
+    player = new Knight(_descriptor.m_color);
   else if (Player::Type::ROOK == _descriptor.m_type)
   {
 
