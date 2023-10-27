@@ -3,7 +3,6 @@
 
 #include <string>
 #include "grid.hpp"
-#include "data_manager.hpp"
 
 class Logic
 {

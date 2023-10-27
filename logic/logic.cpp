@@ -1,4 +1,6 @@
 #include "logic.hpp"
+#include "data_manager.hpp"
+
 
 Logic::Logic(const std::string _filePath)
 {
