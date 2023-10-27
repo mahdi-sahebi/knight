@@ -26,9 +26,7 @@ Player* PlayerManager::Generate(const PlayerInfo& _descriptor)
   else if (Player::Type::QUEEN == _descriptor.m_type)
     player = new Queen(_descriptor.m_color);
   else if (Player::Type::KING == _descriptor.m_type)
-  {
-
-  }
+    player = new King(_descriptor.m_color);
 
   return player;
 }

@@ -5,6 +5,7 @@ add_library(players STATIC
   knight.hpp knight.cpp
   rook.hpp rook.cpp
   queen.hpp queen.cpp
+  king.hpp king.cpp
   player_manager.hpp player_manager.cpp)
 
 target_link_libraries(players common)

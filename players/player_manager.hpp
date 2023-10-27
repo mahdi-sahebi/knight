@@ -8,6 +8,7 @@
 #include "knight.hpp"
 #include "rook.hpp"
 #include "queen.hpp"
+#include "king.hpp"
 #include <common/location.hpp>
 
 
