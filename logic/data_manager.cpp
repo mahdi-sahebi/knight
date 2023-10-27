@@ -41,15 +41,16 @@ tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
     itrBegin = itrEnd + 1;
     const uint8_t playersNumber = atoi(temp.c_str());
 
+    /* Extraction of Players */
     for (uint8_t playerIdx = 0; playerIdx < playersNumber; playerIdx++)
     {
-      /* Extract Color */
+      /* Color */
       itrEnd = find_if(itrBegin, end(buffer), isSpace);
       temp = string(itrBegin, itrEnd);
       itrBegin = itrEnd + 1;
       const Player::Color color = static_cast<Player::Color>(atoi(temp.c_str()));
 
-      /* Extract Type */
+      /* Type */
       itrEnd = find_if(itrBegin, end(buffer), isSpace);
       temp = string(itrBegin, itrEnd);
       itrBegin = itrEnd + 1;
@@ -57,15 +58,17 @@ tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
       if (Player::Color::White == color)
         type = Player::Type::KNIGHT;
 
-      /* Extract Location */
+      /* Location */
       itrEnd = find_if(itrBegin, end(buffer), isLF);
       temp = string(itrBegin, itrEnd);
       itrBegin = itrEnd + 1;
       const Column column = static_cast<Column>(temp.c_str()[0] - 'a');
       const Row    row    = static_cast<Row>   (atoi(temp.substr(1, 1).c_str()) - 1);
-
-      cout << "hi\n";
     }
+
+    /* Extraction of Movement */
+    temp = string(itrBegin, end(buffer));
+    const uint8_t movements = atoi(temp.c_str());
 
     file.close();
   }
