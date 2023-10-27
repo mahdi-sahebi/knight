@@ -7,19 +7,13 @@
 
 using namespace Data;
 using namespace std;
+using namespace PlayerManager;
 
 namespace Data
 {
 
-PlayerInfo::PlayerInfo(Player::Color _color, Player::Type _type, Location _location) :
-  m_color(_color), m_type(_type), m_location(_location)
-{
-
-}
-
 tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
 {
-  // TODO(MN): Don't return copy of a vector. use singleton to return the reference of a static vector.
   tuple<uint8_t, vector<PlayerInfo>> data;
 
   File file;

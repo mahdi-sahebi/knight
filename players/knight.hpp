@@ -6,6 +6,7 @@
 class Knight : public Player
 {
 public:
+  Knight() = delete;
   Knight(const Player::Color _color);
   ~Knight();
   bool canGoTo(const Column _column, const Row _row) override;

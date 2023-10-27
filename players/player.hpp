@@ -3,19 +3,19 @@
 
 #include <cstdint>
 #include <cstdbool>
-#include <logic/location.hpp>
+#include <common/location.hpp>
 
 class Player
 {
 public:
   enum Type : uint8_t
   {
-    PAWN = 1,
+    PAWN   = 1,
     BISHOP = 2,
     KNIGHT = 3,
-    ROOK = 5,
-    QUEEN = 10,
-    KING = uint8_t(-1),
+    ROOK   = 5,
+    QUEEN  = 10,
+    KING   = uint8_t(-1),
   };
 
   enum Color
