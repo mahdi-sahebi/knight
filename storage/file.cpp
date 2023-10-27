@@ -47,6 +47,18 @@ uint32_t File::read(void*const _dst, uint32_t const _size)
   return 0;
 }
 
+void File::read(std::string& _dstString)
+{
+  _dstString.clear();
+
+  if (m_file.is_open())
+  {
+    const uint32_t size = getSize();
+    m_file.read((char*)_dstString.data(), size);
+    _dstString.resize(size);
+  }
+}
+
 uint32_t File::write(void const*const _src, uint32_t const _size)
 {
   uint32_t writtenSize = _size;
