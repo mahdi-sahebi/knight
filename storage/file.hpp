@@ -4,10 +4,10 @@
 #include <fstream>
 #include "storage.hpp"
 
-class CFile : public IStorage
+class File : public IStorage
 {
 public: 
-  CFile();
+  File();
   bool     open   (std::string const _path) override;
   bool     isOpen () override;
   uint32_t getSize() override;

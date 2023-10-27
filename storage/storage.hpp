@@ -5,9 +5,8 @@
 
 #include <string>
 #include <cstdint>
-#include <io/io.hpp>
 
-class IStorage : public IIO
+class IStorage
 {
 public: 
   virtual bool     open      (std::string const _path) = 0;

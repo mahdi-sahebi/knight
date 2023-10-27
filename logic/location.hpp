@@ -2,6 +2,7 @@
 #define __LOCATION_H__
 
 #include <cstdint>
+#include <utility>
 
 enum Row : uint8_t
 {
@@ -36,5 +37,6 @@ enum Column : uint8_t
 Column& operator++(Column& _col);
 Column& operator--(Column& _col);
 
+typedef std::pair<Column, Row> Location;
 
 #endif /* __LOCATION_H__ */

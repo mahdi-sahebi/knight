@@ -1,2 +1,4 @@
 add_subdirectory(players)
-add_library(logic STATIC grid.hpp grid.cpp)
+add_library(logic STATIC grid.hpp grid.cpp
+                         data_manager.hpp data_manager.cpp)
+target_link_libraries(logic storage)
