@@ -5,21 +5,12 @@
 #include <vector>
 #include <cstdint>
 #include <string>
-#include <logic/location.hpp>
-#include <logic/players/player.hpp>
+#include <logic/players/player_manager.hpp>
 
 namespace Data
 {
 
-struct PlayerInfo
-{
-  PlayerInfo(Player::Color _color, Player::Type _type, Location _location);
-  Player::Color m_color;
-  Player::Type  m_type;
-  Location      m_location;
-};
-
-std::tuple<uint8_t, std::vector<PlayerInfo>> Import(const std::string _filePath);
+std::tuple<uint8_t, std::vector<PlayerManager::PlayerInfo>> Import(const std::string _filePath);
 
 }
 
