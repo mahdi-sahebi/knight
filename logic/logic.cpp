@@ -7,7 +7,8 @@ using namespace Data;
 using namespace PlayerManager;
 
 
-Logic::Logic(const string _filePath)
+Logic::Logic(const string _filePath) :
+  m_knight(nullptr)
 {
   m_filePath = _filePath;
   m_grid = Grid::getInstance();
@@ -27,10 +28,16 @@ void Logic::Solve()
 
 
   /* Generate players and arrange. */
+  m_knight = nullptr;
   for (const PlayerInfo& playerInfo : playerInfoList)
   {
-    Player* player = PlayerManager::Generate(playerInfo);
-    // TODO(MN): Use unique_ptr in grid
+    Player* player = PlayerManager::Generate(playerInfo);// TODO(MN): Delete players. use unique_ptr
+
+    /* The first player is the Knight */
+    if (nullptr == m_knight)
+      m_knight = player;
+
+    m_grid->put(player, player->m_location);
   }
 
   /* Find the best path. */

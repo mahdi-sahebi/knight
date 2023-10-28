@@ -11,9 +11,14 @@ King::~King()
 
 }
 
-bool King::canGoTo(const Column _column, const Row _row)
+bool King::canGoTo(const Location _location)
 {
   bool isValidMove = false;
-
+  // TODO(MN): Implement
   return isValidMove;
+}
+
+void King::iterateFrom(const Location _startLocation, const OnIterate _onIterate)
+{
+
 }
