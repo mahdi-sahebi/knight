@@ -25,9 +25,12 @@ private:
   uint8_t m_maxMovesDepth;
   uint8_t m_movesDepth;
 
-  uint16_t m_score;
+  uint8_t m_score;
+  uint8_t m_hitCount;
   std::stack<Location> m_path;
-  uint16_t m_bestScore;
+
+  uint8_t m_bestScore;
+  uint8_t m_bestHitCount;
   std::stack<Location> m_bestPath;
 };
 

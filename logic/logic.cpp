@@ -27,7 +27,6 @@ void Logic::onPlayerIterate(const Location _location)
   m_path.push(_location);
   assert(m_movesDepth <= m_maxMovesDepth);
 
-
   Player*const player = m_grid->get(_location);
   const bool canGo  = (nullptr == player) || m_mainPlayer->isEnemy(*player);
   const bool canHit = (nullptr != player) && m_mainPlayer->isEnemy(*player);
@@ -35,6 +34,7 @@ void Logic::onPlayerIterate(const Location _location)
 
   if (canHit)
   {
+    m_hitCount++;
     m_score += player->m_type;
     m_grid->remove(_location);                /* Pick up enemy. */
     m_grid->remove(m_mainPlayer->m_location); /* Pick up main player. */
@@ -45,10 +45,11 @@ void Logic::onPlayerIterate(const Location _location)
     m_mainPlayer->iterateFrom(_location, std::bind(&Logic::onPlayerIterate, this, std::placeholders::_1));
   else if (m_movesDepth == m_maxMovesDepth)
   {
-    if (m_score >= m_bestScore)
+    if ((m_score >= m_bestScore) && (m_hitCount >= m_bestHitCount))
     {
 
       m_bestScore = m_score;
+      m_bestHitCount = m_hitCount;
       // TODO(MN): Copy the path as the best path
       m_bestPath = m_path;
     }
@@ -56,6 +57,7 @@ void Logic::onPlayerIterate(const Location _location)
 
   if (canHit)
   {
+    m_hitCount--;
     m_score -= player->m_type;
     m_grid->remove(_location);              /* Pick up the main player. */
     m_mainPlayer->move(lastPlayerLocation); /* Put the main player. */
@@ -82,12 +84,13 @@ void Logic::chooseMainPlayer(Player* _player)
 void Logic::resetAnswer()
 {
   m_movesDepth = 0;
-  m_score = 0;
-
+  m_score      = 0;
+  m_hitCount   = 0;
   while (!m_path.empty())
     m_path.pop();
 
-  m_bestScore = 0;
+  m_bestScore    = 0;
+  m_bestHitCount = 0;
   while (!m_bestPath.empty())
     m_bestPath.pop();
 }
@@ -129,7 +132,8 @@ void Logic::Solve()
   }
   if (0 == m_bestScore)
     output = "!";
-
+  // TODO(MN): fix the file
+  std::cout << "Score : " << uint32_t(m_bestScore) << ", Hits: " << uint32_t(m_bestHitCount) << std::endl;
   std::cout << output << std::endl;
   File file;
   file.open("/home/mahdi/out.txt");
