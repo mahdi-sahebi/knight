@@ -1,8 +1,8 @@
 #include <cmath>
 #include "knight.hpp"
 
-Knight::Knight(const Player::Color _color, Location _location) :
-  Player(Player::KNIGHT, _color)
+Knight::Knight(const Player::Color _color, const Location _location) :
+  Player(Player::KNIGHT, _color, _location)
 {
 
 }
@@ -30,13 +30,14 @@ bool Knight::canGoTo(const Column _column, const Row _row)
     constexpr uint8_t offsetY = 2;
     constexpr uint8_t offsetX = 2;
 
-    const int8_t difColumn = m_column - _column;
-    const int8_t difRow = m_row - _row;
+    const int8_t difColumn = m_location.first - _column;
+    const int8_t difRow = m_location.second - _row;
 
     if ((abs(difColumn) <= 2) && (abs(difRow) <= 2))
       isValidMove = mask[difColumn + offsetX][difRow + offsetY];
   }
 
+  // TODO(MN): Test
 //      uint8_t row = _row;uint8_t column = _column;
 
 //  for (int8_t xItr = -2; xItr <= 2; xItr++)

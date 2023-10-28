@@ -1,6 +1,7 @@
 #include "bishop.hpp"
 
-Bishop::Bishop(const Player::Color _color) : Player(Player::BISHOP, _color)
+Bishop::Bishop(const Player::Color _color, const Location _location) :
+  Player(Player::BISHOP, _color, _location)
 {
 
 }

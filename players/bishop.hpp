@@ -7,7 +7,7 @@ class Bishop : public Player
 {
 public:
   Bishop() = delete;
-  Bishop(const Player::Color _color);
+  Bishop(const Player::Color _color, const Location _location);
   ~Bishop();
   bool canGoTo(const Column _column, const Row _row) override;
 private:

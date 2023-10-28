@@ -7,7 +7,7 @@ class Queen : public Player
 {
 public:
   Queen() = delete;
-  Queen(const Player::Color _color);
+  Queen(const Player::Color _color, const Location _location);
   ~Queen();
   bool canGoTo(const Column _column, const Row _row) override;
 private:

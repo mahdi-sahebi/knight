@@ -24,7 +24,7 @@ public:
     White
   };
 
-  Player(const Player::Type _type, const Player::Color _color, Location _location);
+  Player(const Player::Type _type, const Player::Color _color, const Location _location);
   Player() = delete;
   ~Player();
   bool isEnemy(const Player& _player);

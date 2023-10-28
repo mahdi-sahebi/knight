@@ -1,6 +1,6 @@
 #include "player.hpp"
 
-Player::Player(const Player::Type _type, const Player::Color _color, Location _location) :
+Player::Player(const Player::Type _type, const Player::Color _color, const Location _location) :
   m_type(_type), m_color(_color), m_location(_location)
 {
 

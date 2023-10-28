@@ -8,7 +8,7 @@ class Pawn : public Player
 {
 public:
   Pawn() = delete;
-  Pawn(const Player::Color _color);
+  Pawn(const Player::Color _color, const Location _location);
   ~Pawn();
   bool canGoTo(const Column _column, const Row _row) override;
 private:

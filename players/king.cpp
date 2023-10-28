@@ -1,6 +1,7 @@
 #include "king.hpp"
 
-King::King(const Player::Color _color) : Player(Player::KING, _color)
+King::King(const Player::Color _color, const Location _location) :
+  Player(Player::KING, _color, _location)
 {
 
 }

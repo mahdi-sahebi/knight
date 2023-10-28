@@ -16,17 +16,17 @@ Player* PlayerManager::Generate(const PlayerInfo& _descriptor)
 
   // TODO(MN): Use open-close principle
   if (Player::Type::PAWN == _descriptor.m_type)
-    player = new Knight(_descriptor.m_color);
+    player = new Knight(_descriptor.m_color, _descriptor.m_location);
   else if (Player::Type::BISHOP == _descriptor.m_type)
-    player = new Bishop(_descriptor.m_color);
+    player = new Bishop(_descriptor.m_color, _descriptor.m_location);
   else if (Player::Type::KNIGHT == _descriptor.m_type)
-    player = new Knight(_descriptor.m_color);
+    player = new Knight(_descriptor.m_color, _descriptor.m_location);
   else if (Player::Type::ROOK == _descriptor.m_type)
-    player = new Rook(_descriptor.m_color);
+    player = new Rook(_descriptor.m_color, _descriptor.m_location);
   else if (Player::Type::QUEEN == _descriptor.m_type)
-    player = new Queen(_descriptor.m_color);
+    player = new Queen(_descriptor.m_color, _descriptor.m_location);
   else if (Player::Type::KING == _descriptor.m_type)
-    player = new King(_descriptor.m_color);
+    player = new King(_descriptor.m_color, _descriptor.m_location);
 
   return player;
 }
