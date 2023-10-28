@@ -58,3 +58,8 @@ Location operator+(Location& _a, Location& _b)
   return c;
 }
 
+bool isLocationValid(const Location& _location)
+{
+  return ((_location.first  >= 0) && (_location.first  < COL_COUNT) &&
+          (_location.second >= 0) && (_location.second < ROW_COUNT));
+}
