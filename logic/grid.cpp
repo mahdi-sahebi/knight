@@ -27,7 +27,7 @@ void Grid::clear()
       m_grids[col][row] = nullptr;
 }
 
-bool Grid::isEmpty(const Column _column, const Row _row)
+bool Grid::isEmpty(const Location _location)
 {
-  return (nullptr == m_grids[_column][_row]);
+  return (nullptr == m_grids[_location.first][_location.second]);
 }
