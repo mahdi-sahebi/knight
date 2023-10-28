@@ -37,7 +37,7 @@ void Logic::Solve()
     if (nullptr == m_knight)
       m_knight = player;
 
-    Grid::getInstance()->put(player, player->m_location);
+    m_grid->put(player, player->m_location);
   }
 
   /* Find the best path. */
