@@ -44,6 +44,7 @@ Column& operator+=(Column& _colA, Column& _colB);
 typedef std::pair<int8_t, int8_t> Location;
 
 Location operator+(Location& _a, Location& _b);
+Location operator-(Location& _a, Location& _b);
 bool isLocationValid(const Location& _location);
 
 #endif /* __LOCATION_H__ */
