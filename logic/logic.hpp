@@ -22,6 +22,9 @@ private:
   Player* m_mainPlayer;
   uint8_t m_maxMovesDepth;
   uint8_t m_movesDepth;
+
+  uint16_t m_totalScore;
+  uint16_t m_bestScore;
 };
 
 #endif /* __LOGIC_H__ */
