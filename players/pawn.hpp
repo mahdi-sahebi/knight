@@ -11,6 +11,7 @@ public:
   Pawn(const Player::Color _color, const Location _location);
   ~Pawn();
   bool canGoTo(const Location _location) override;
+  void iterateFrom(const Location _startLocation, const OnIterate _onIterate) override;
 private:
 };
 

@@ -17,3 +17,8 @@ bool Rook::canGoTo(const Location _location)
   // TODO(MN): Implement
   return isValidMove;
 }
+
+void Rook::iterateFrom(const Location _startLocation, const OnIterate _onIterate)
+{
+
+}

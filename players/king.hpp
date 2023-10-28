@@ -10,6 +10,7 @@ public:
   King(const Player::Color _color, const Location _location);
   ~King();
   bool canGoTo(const Location _location) override;
+  void iterateFrom(const Location _startLocation, const OnIterate _onIterate) override;
 private:
 };
 

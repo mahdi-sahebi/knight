@@ -39,27 +39,10 @@ bool Knight::canGoTo(const Location _location)
       isValidMove = mask[difColumn + offsetX][difRow + offsetY];
   }
 
-  // TODO(MN): Test
-//      uint8_t row = _row;uint8_t column = _column;
-
-//  for (int8_t xItr = -2; xItr <= 2; xItr++)
-//  {
-//    const int8_t x = column + xItr + offsetX;
-//    if ((x < 0) || (x >= COL_COUNT))
-//      continue;
-
-//    for (int8_t yItr = -2; yItr <= 2; yItr++)
-//    {
-//      const int8_t y = row + yItr + offsetY;
-//      if ((y < 0) || (y >= ROW_COUNT))
-//        continue;
-
-//      /* Hasn't been allowed. */
-//      if (0 == mask[xItr + offsetX][yItr + offsetY])
-//        continue;
-
-//    }
-//  }
-
   return isValidMove;
+}
+
+void Knight::iterateFrom(const Location _startLocation, const OnIterate _onIterate)
+{
+
 }

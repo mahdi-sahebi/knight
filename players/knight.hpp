@@ -10,6 +10,7 @@ public:
   Knight(const Player::Color _color, const Location _location);
   ~Knight();
   bool canGoTo(const Location _location) override;
+  void iterateFrom(const Location _startLocation, const OnIterate _onIterate) override;
 private:
 };
 
