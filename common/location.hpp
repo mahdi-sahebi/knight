@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <utility>
 
-enum Row : uint8_t
+enum Row : int8_t
 {
   ROW_1 = 0,
   ROW_2,
@@ -19,9 +19,11 @@ enum Row : uint8_t
 
 Row& operator++(Row& _row);
 Row& operator--(Row& _row);
+Row operator+(Row& _rowA, Row& _rowB);
+Row& operator+=(Row& _rowA, Row& _rowB);
 
 
-enum Column : uint8_t
+enum Column : int8_t
 {
   COL_A = 0,
   COL_B,
@@ -36,7 +38,11 @@ enum Column : uint8_t
 
 Column& operator++(Column& _col);
 Column& operator--(Column& _col);
+Column operator+(Column& _colA, Column& _colB);
+Column& operator+=(Column& _colA, Column& _colB);
 
-typedef std::pair<Column, Row> Location;
+typedef std::pair<int8_t, int8_t> Location;
+
+Location operator+(Location& _a, Location& _b);
 
 #endif /* __LOCATION_H__ */
