@@ -15,7 +15,7 @@ public:
 private:
   Grid* m_grid;
   std::string m_filePath;
-//  Data m_data;
+  Player* m_knight;
 };
 
 #endif /* __LOGIC_H__ */
