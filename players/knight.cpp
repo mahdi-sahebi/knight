@@ -44,5 +44,26 @@ bool Knight::canGoTo(const Location _location)
 
 void Knight::iterateFrom(const Location _startLocation, const OnIterate _onIterate)
 {
+  Location offsets[] =
+  {
+    {-2, -1},
+    {-2, +1},
+    {-1, -2},
+    {-1, +2},
+    {+1, -2},
+    {+1, +2},
+    {+2, -1},
+    {+2, +1},
+  };
 
+  Location startLocation = _startLocation;
+
+  for (auto& offset : offsets)
+  {
+    const Location location = (startLocation + offset);
+    if (!isLocationValid(location))
+      continue;
+
+    _onIterate(location);
+  }
 }
