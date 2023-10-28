@@ -11,9 +11,14 @@ Queen::~Queen()
 
 }
 
-bool Queen::canGoTo(const Column _column, const Row _row)
+bool Queen::canGoTo(const Location _location)
 {
   bool isValidMove = false;
-
+  // TODO(MN): Implement
   return isValidMove;
+}
+
+void Queen::iterateFrom(const Location _startLocation, const OnIterate _onIterate)
+{
+
 }

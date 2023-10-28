@@ -11,9 +11,14 @@ Pawn::~Pawn()
 
 }
 
-bool Pawn::canGoTo(const Column _column, const Row _row)
+bool Pawn::canGoTo(const Location _location)
 {
   bool isValidMove = false;
-
+  // TODO(MN): Implement
   return isValidMove;
+}
+
+void Pawn::iterateFrom(const Location _startLocation, const OnIterate _onIterate)
+{
+
 }
