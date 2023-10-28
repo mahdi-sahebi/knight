@@ -23,6 +23,7 @@ Logic::~Logic()
 void Logic::onPlayerIterate(const Location _location)
 {
   m_movesDepth++;
+  m_path.push(_location);
   assert(m_movesDepth <= m_maxMovesDepth);
 
 
@@ -31,7 +32,7 @@ void Logic::onPlayerIterate(const Location _location)
   const bool canHit = (nullptr != player) && m_mainPlayer->isEnemy(*player);
   if (canHit)
   {
-    m_totalScore += player->m_type;
+    m_score += player->m_type;
     m_grid->remove(_location);
   }
 
@@ -39,21 +40,24 @@ void Logic::onPlayerIterate(const Location _location)
     m_mainPlayer->iterateFrom(m_mainPlayer->m_location, std::bind(&Logic::onPlayerIterate, this, std::placeholders::_1));
   else if (m_movesDepth == m_maxMovesDepth)
   {
-    if (m_totalScore >= m_bestScore)
+    if (m_score >= m_bestScore)
     {
 
-      m_bestScore = m_totalScore;
+      m_bestScore = m_score;
+      // TODO(MN): Copy the path as the best path
+      m_bestPath = m_path;
     }
   }
 
   if (canHit)
   {
-    m_totalScore -= player->m_type;
+    m_score -= player->m_type;
     m_grid->put(player, _location);
   }
 
 
   m_movesDepth--;
+  m_path.pop();
 }
 
 void Logic::resetMainPlayer()
@@ -68,6 +72,17 @@ void Logic::chooseMainPlayer(Player* _player)
     m_mainPlayer = _player;
 }
 
+void Logic::resetAnswer()
+{
+  resetMainPlayer();
+  m_score = 0;
+  while (!m_path.empty())
+    m_path.pop();
+  m_bestScore = 0;
+  while (!m_bestPath.empty())
+    m_bestPath.pop();
+}
+
 void Logic::Solve()
 {
   /* Import data from the file. */
@@ -77,9 +92,7 @@ void Logic::Solve()
 
 
   /* Generate players and arrange. */
-  resetMainPlayer();
-  m_totalScore = 0;
-  m_bestScore = 0;
+  resetAnswer();
 
   for (const PlayerInfo& playerInfo : playerInfoList)
   {
