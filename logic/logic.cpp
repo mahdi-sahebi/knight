@@ -37,7 +37,7 @@ void Logic::onPlayerIterate(const Location _location)
   }
 
   if ((m_movesDepth < m_maxMovesDepth) && canGo)
-    m_mainPlayer->iterateFrom(m_mainPlayer->m_location, std::bind(&Logic::onPlayerIterate, this, std::placeholders::_1));
+    m_mainPlayer->iterateFrom(_location, std::bind(&Logic::onPlayerIterate, this, std::placeholders::_1));
   else if (m_movesDepth == m_maxMovesDepth)
   {
     if (m_score >= m_bestScore)
@@ -74,10 +74,12 @@ void Logic::chooseMainPlayer(Player* _player)
 
 void Logic::resetAnswer()
 {
-  resetMainPlayer();
+  m_movesDepth = 0;
   m_score = 0;
+
   while (!m_path.empty())
     m_path.pop();
+
   m_bestScore = 0;
   while (!m_bestPath.empty())
     m_bestPath.pop();
@@ -92,7 +94,7 @@ void Logic::Solve()
 
 
   /* Generate players and arrange. */
-  resetAnswer();
+  resetMainPlayer();
 
   for (const PlayerInfo& playerInfo : playerInfoList)
   {
@@ -103,7 +105,7 @@ void Logic::Solve()
 
 
   /* Find the best path. */
-  m_movesDepth = 0;
+  resetAnswer();
   if (0 != m_maxMovesDepth)
     m_mainPlayer->iterateFrom(m_mainPlayer->m_location, std::bind(&Logic::onPlayerIterate, this, std::placeholders::_1));
 
