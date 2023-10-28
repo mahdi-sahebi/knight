@@ -1,7 +1,7 @@
 #include "player.hpp"
 
-Player::Player(const Player::Type _type, const Player::Color _color) :
-  m_type(_type), m_color(_color), m_score(_type)
+Player::Player(const Player::Type _type, const Player::Color _color, Location _location) :
+  m_type(_type), m_color(_color), m_location(_location)
 {
 
 }
@@ -21,15 +21,12 @@ bool Player::move(const Column _column, const Row _row)
   bool const isValidMove = canGoTo(_column, _row);
 
   if (isValidMove)
-  {
-    m_column = _column;
-    m_row    = _row;
-  }
+    m_location = Location(_column, _row);
 
   return isValidMove;
 }
 
 bool Player::canHit(const Player& _player)
 {
-  return (isEnemy(_player) && canGoTo(_player.m_column, _player.m_row));
+  return (isEnemy(_player) && canGoTo(_player.m_location.first, _player.m_location.second));
 }

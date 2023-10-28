@@ -1,7 +1,8 @@
 #include <cmath>
 #include "knight.hpp"
 
-Knight::Knight(const Player::Color _color) : Player(Player::KNIGHT, _color)
+Knight::Knight(const Player::Color _color, Location _location) :
+  Player(Player::KNIGHT, _color)
 {
 
 }

@@ -24,7 +24,7 @@ public:
     White
   };
 
-  Player(const Player::Type _type, const Player::Color _color);
+  Player(const Player::Type _type, const Player::Color _color, Location _location);
   Player() = delete;
   ~Player();
   bool isEnemy(const Player& _player);
@@ -35,8 +35,7 @@ public:
   mutable Type m_type;
   mutable Color m_color;
   mutable Row m_row;
-  mutable Column m_column;
-  mutable uint8_t m_score;
+  mutable Location m_location;
 private:
 };
 
