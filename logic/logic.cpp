@@ -30,10 +30,14 @@ void Logic::onPlayerIterate(const Location _location)
   Player*const player = m_grid->get(_location);
   const bool canGo  = (nullptr == player) || m_mainPlayer->isEnemy(*player);
   const bool canHit = (nullptr != player) && m_mainPlayer->isEnemy(*player);
+  const Location lastPlayerLocation = m_mainPlayer->m_location;
+
   if (canHit)
   {
     m_score += player->m_type;
-    m_grid->remove(_location);
+    m_grid->remove(_location);                /* Pick up enemy. */
+    m_grid->remove(m_mainPlayer->m_location); /* Pick up main player. */
+    m_mainPlayer->move(_location);            /* Put the main player. */
   }
 
   if ((m_movesDepth < m_maxMovesDepth) && canGo)
@@ -52,7 +56,9 @@ void Logic::onPlayerIterate(const Location _location)
   if (canHit)
   {
     m_score -= player->m_type;
-    m_grid->put(player, _location);
+    m_grid->remove(_location);              /* Pick up the main player. */
+    m_mainPlayer->move(lastPlayerLocation); /* Put the main player. */
+    m_grid->put(player, _location);         /* Restore the enemy. */
   }
 
 
