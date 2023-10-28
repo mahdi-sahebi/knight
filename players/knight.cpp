@@ -12,11 +12,13 @@ Knight::~Knight()
 
 }
 
-bool Knight::canGoTo(const Column _column, const Row _row)
+bool Knight::canGoTo(const Location _location)
 {
   bool isValidMove = false;
+  const uint8_t column = _location.first;
+  const uint8_t row    = _location.second;
 
-  if ((_column < COL_COUNT) && (_row < ROW_COUNT))
+  if ((column < COL_COUNT) && (row < ROW_COUNT))
   {
     constexpr bool mask[5][5] =
     {
@@ -30,8 +32,8 @@ bool Knight::canGoTo(const Column _column, const Row _row)
     constexpr uint8_t offsetY = 2;
     constexpr uint8_t offsetX = 2;
 
-    const int8_t difColumn = m_location.first - _column;
-    const int8_t difRow = m_location.second - _row;
+    const int8_t difColumn = m_location.first - column;
+    const int8_t difRow = m_location.second - row;
 
     if ((abs(difColumn) <= 2) && (abs(difRow) <= 2))
       isValidMove = mask[difColumn + offsetX][difRow + offsetY];

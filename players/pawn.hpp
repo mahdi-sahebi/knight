@@ -10,7 +10,7 @@ public:
   Pawn() = delete;
   Pawn(const Player::Color _color, const Location _location);
   ~Pawn();
-  bool canGoTo(const Column _column, const Row _row) override;
+  bool canGoTo(const Location _location) override;
 private:
 };
 

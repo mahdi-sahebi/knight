@@ -11,9 +11,9 @@ Queen::~Queen()
 
 }
 
-bool Queen::canGoTo(const Column _column, const Row _row)
+bool Queen::canGoTo(const Location _location)
 {
   bool isValidMove = false;
-
+  // TODO(MN): Implement
   return isValidMove;
 }

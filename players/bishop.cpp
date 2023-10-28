@@ -11,9 +11,9 @@ Bishop::~Bishop()
 
 }
 
-bool Bishop::canGoTo(const Column _column, const Row _row)
+bool Bishop::canGoTo(const Location _location)
 {
   bool isValidMove = false;
-
+  // TODO(MN): Implement
   return isValidMove;
 }

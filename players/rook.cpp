@@ -11,9 +11,9 @@ Rook::~Rook()
 
 }
 
-bool Rook::canGoTo(const Column _column, const Row _row)
+bool Rook::canGoTo(const Location _location)
 {
   bool isValidMove = false;
-
+  // TODO(MN): Implement
   return isValidMove;
 }

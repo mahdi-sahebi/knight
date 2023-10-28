@@ -9,7 +9,7 @@ public:
   King() = delete;
   King(const Player::Color _color, const Location _location);
   ~King();
-  bool canGoTo(const Column _column, const Row _row) override;
+  bool canGoTo(const Location _location) override;
 private:
 };
 
