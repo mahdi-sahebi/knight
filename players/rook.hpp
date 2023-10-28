@@ -7,7 +7,7 @@ class Rook : public Player
 {
 public:
   Rook() = delete;
-  Rook(const Player::Color _color);
+  Rook(const Player::Color _color, const Location _location);
   ~Rook();
   bool canGoTo(const Column _column, const Row _row) override;
 private:

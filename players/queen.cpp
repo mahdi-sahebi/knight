@@ -1,6 +1,7 @@
 #include "queen.hpp"
 
-Queen::Queen(const Player::Color _color) : Player(Player::QUEEN, _color)
+Queen::Queen(const Player::Color _color, const Location _location) :
+  Player(Player::QUEEN, _color, _location)
 {
 
 }

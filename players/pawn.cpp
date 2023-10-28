@@ -1,6 +1,7 @@
 #include "pawn.hpp"
 
-Pawn::Pawn(const Player::Color _color) : Player(Player::PAWN, _color)
+Pawn::Pawn(const Player::Color _color, const Location _location) :
+  Player(Player::PAWN, _color, _location)
 {
 
 }

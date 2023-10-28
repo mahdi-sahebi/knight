@@ -1,6 +1,7 @@
 #include "rook.hpp"
 
-Rook::Rook(const Player::Color _color) : Player(Player::ROOK, _color)
+Rook::Rook(const Player::Color _color, const Location _location) :
+  Player(Player::ROOK, _color, _location)
 {
 
 }
