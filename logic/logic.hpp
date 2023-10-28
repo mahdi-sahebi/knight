@@ -13,9 +13,15 @@ public:
   void Solve();
 
 private:
+  void onPlayerIterate(const Location _location);
+  void resetMainPlayer();
+  void chooseMainPlayer(Player* _player);
+
   Grid* m_grid;
   std::string m_filePath;
-  Player* m_knight;
+  Player* m_mainPlayer;
+  uint8_t m_maxMovesDepth;
+  uint8_t m_movesDepth;
 };
 
 #endif /* __LOGIC_H__ */
