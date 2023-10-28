@@ -32,6 +32,11 @@ bool Grid::isEmpty(const Location _location)
   return (nullptr == m_grids[_location.first][_location.second]);
 }
 
+Player* Grid::get(const Location _location)
+{
+  return m_grids[_location.first][_location.second];
+}
+
 void Grid::put(Player* const _player, const Location _location)
 {
   m_grids[_location.first][_location.second] = _player;

@@ -10,9 +10,10 @@ class Grid
 {
 public:
   static Grid* getInstance();
-  bool isEmpty(const Location _location);// TODO(MN): Use location
-  void put(Player* const _player, const Location _location);
-  void remove(const Location _location);
+  bool    isEmpty(const Location _location);
+  Player* get    (const Location _location);
+  void    remove (const Location _location);
+  void    put    (Player* const _player, const Location _location);
 
 private:
   Grid();

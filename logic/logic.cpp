@@ -29,8 +29,8 @@ void Logic::Solve()
   /* Generate players and arrange. */
   for (const PlayerInfo& playerInfo : playerInfoList)
   {
-    Player* player = PlayerManager::Generate(playerInfo);
-    // TODO(MN): Use unique_ptr in grid
+    Player* player = PlayerManager::Generate(playerInfo);// TODO(MN): Delete players. use unique_ptr
+    Grid::getInstance()->put(player, player->m_location);
   }
 
   /* Find the best path. */
