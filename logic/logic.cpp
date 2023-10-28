@@ -1,6 +1,7 @@
 #include <cassert>
 #include "logic.hpp"
 #include "data_manager.hpp"
+#include <storage/file.hpp> // TODO(MN): Remove it
 
 
 using namespace std;
@@ -90,7 +91,7 @@ void Logic::resetAnswer()
   while (!m_bestPath.empty())
     m_bestPath.pop();
 }
-
+                                     #include <iostream>
 void Logic::Solve()
 {
   /* Import data from the file. */
@@ -117,6 +118,23 @@ void Logic::Solve()
 
 
   /* Export result to the file. */
+  string output = "";
+  while (!m_bestPath.empty())
+  {
+    auto location = m_bestPath.top();
+    // TODO(MN): operator
+    output = string(1, 'a' + location.first) + string(1, '0' + location.second + 1) + "\n" + output;
+
+    m_bestPath.pop();
+  }
+  if (0 == m_bestScore)
+    output = "!";
+
+  std::cout << output << std::endl;
+  File file;
+  file.open("/home/mahdi/out.txt");
+  file.write(output.c_str(), output.length());
+  file.close();
 
   int x = 0;
 }
