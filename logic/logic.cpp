@@ -9,10 +9,9 @@ using namespace Data;
 using namespace PlayerManager;
 
 
-Logic::Logic(const string _filePath) :
-  m_mainPlayer(nullptr)
+Logic::Logic(const string _inputFilePath, const std::string _outputFilePath) :
+  m_mainPlayer(nullptr), m_inputFilePath(_inputFilePath), m_outputFilePath(_outputFilePath)
 {
-  m_filePath = _filePath;
   m_grid = Grid::getInstance();
 }
 
@@ -120,7 +119,7 @@ void Logic::resetAnswer()
 void Logic::Solve()
 {
   /* Import data from the file. */
-  auto const data = Data::Import(m_filePath);
+  auto const data = Data::Import(m_inputFilePath);
   m_maxMovesDepth = std::get<0>(data);
   const vector<PlayerInfo> playerInfoList = std::get<1>(data);
 
@@ -143,22 +142,5 @@ void Logic::Solve()
 
 
   /* Export result to the file. */
-  string output = "";
-  while (!m_bestPath.empty())
-  {
-    auto location = m_bestPath.top();
-    // TODO(MN): operator
-    output = string(1, 'a' + location.first) + string(1, '0' + location.second + 1) + "\n" + output;
-
-    m_bestPath.pop();
-  }
-  if (0 == m_bestScore)
-    output = "!";
-
-  File file;
-  file.open("/home/mahdi/out.txt", File::Mode::WRITE);
-  file.write(output.c_str(), output.length());
-  file.close();
-
-  int x = 0;
+  Data::Export(m_bestPath, m_bestScore, m_outputFilePath);
 }

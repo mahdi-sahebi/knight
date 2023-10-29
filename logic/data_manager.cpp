@@ -82,4 +82,28 @@ tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
   return data;
 }
 
+void Export(std::stack<Location> _bestPath, const uint8_t _bestScore, const std::string _filePath)
+{
+  string output = "";
+
+  if (0 != _bestScore)
+  {
+    while (!_bestPath.empty())
+    {
+      auto location = _bestPath.top();
+      // TODO(MN): operator
+      output = string(1, 'a' + location.first) + string(1, '0' + location.second + 1) + "\n" + output;
+
+      _bestPath.pop();
+    }
+  }
+  else
+    output = "!";
+
+  File file;
+  file.open(_filePath, File::Mode::WRITE);
+  file.write(output.c_str(), output.length());
+  file.close();
+}
+
 }

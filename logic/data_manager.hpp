@@ -6,12 +6,12 @@
 #include <cstdint>
 #include <string>
 #include <players/player_manager.hpp>
+#include <stack>
 
 namespace Data
 {
-
 std::tuple<uint8_t, std::vector<PlayerManager::PlayerInfo>> Import(const std::string _filePath);
-// TODO(MN): Export
+void Export(std::stack<Location> _bestPath, const uint8_t _bestScore, const std::string _filePath);
 }
 
 #endif /* __DATA_MANAGER_H__ */
