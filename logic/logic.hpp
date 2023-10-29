@@ -14,10 +14,11 @@ public:
   void Solve();
 
 private:
-  void onPlayerIterate(const Location _location);
-  void resetMainPlayer();
+  void onPlayerIterate (const Location _location);
+  void resetMainPlayer ();
   void chooseMainPlayer(Player* _player);
-  void resetAnswer();
+  void resetAnswer     ();
+  bool isAlphabetLess  (std::stack<Location> _path1, std::stack<Location> _path2);
 
   Grid* m_grid;
   std::string m_filePath;

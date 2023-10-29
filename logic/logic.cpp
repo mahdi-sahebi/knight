@@ -21,6 +21,28 @@ Logic::~Logic()
 
 }
 
+bool Logic::isAlphabetLess(stack<Location> _path1, stack<Location> _path2)
+{
+  /* Alphabets are on the column field, not the row, so we need to
+   * do the sum on this field within the whole path. */
+  uint16_t sumAlpha1 = 0;
+  uint16_t sumAlpha2 = 0;
+
+  while (!_path1.empty())
+  {
+    const auto location1 = _path1.top();
+    const auto location2 = _path2.top();
+
+    sumAlpha1 += location1.first;
+    sumAlpha2 += location2.first;
+
+    _path1.pop();
+    _path2.pop();
+  }
+
+  return (sumAlpha2 < sumAlpha1);
+}
+
 void Logic::onPlayerIterate(const Location _location)
 {
   m_movesDepth++;
@@ -45,9 +67,10 @@ void Logic::onPlayerIterate(const Location _location)
     m_mainPlayer->iterateFrom(_location, std::bind(&Logic::onPlayerIterate, this, std::placeholders::_1));
   else if (m_movesDepth == m_maxMovesDepth)
   {
-    if ((m_score >= m_bestScore) && (m_hitCount >= m_bestHitCount))
+    if ((m_score > m_bestScore)  ||
+        ((m_score == m_bestScore) && (m_hitCount > m_bestHitCount))  ||
+        ((m_score == m_bestScore) && (m_hitCount == m_bestHitCount) && isAlphabetLess(m_bestPath, m_path)))
     {
-
       m_bestScore = m_score;
       m_bestHitCount = m_hitCount;
       // TODO(MN): Copy the path as the best path
