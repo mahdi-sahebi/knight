@@ -37,7 +37,7 @@ tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
     {
       return ('\n' == _char);
     };
-
+// TODO(MN): Use functions to extract items
     /* Extract number of pieces. */
     itrEnd = find_if(itrBegin, end(buffer), isLF);
     temp = string(itrBegin, itrEnd);
