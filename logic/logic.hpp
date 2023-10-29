@@ -3,6 +3,7 @@
 
 #include <string>
 #include <stack>
+#include "data_manager.hpp"
 #include "grid.hpp"
 
 class Logic
@@ -19,6 +20,7 @@ private:
   void chooseMainPlayer(Player* _player);
   void resetAnswer     ();
   bool isAlphabetLess  (std::stack<Location> _path1, std::stack<Location> _path2);
+  void arrangePlayers  (const std::vector<PlayerManager::PlayerDescriptor>& _descriptorList);
 
   Grid* m_grid;
   std::string m_inputFilePath;

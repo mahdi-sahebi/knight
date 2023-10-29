@@ -1,6 +1,5 @@
 #include <cassert>
 #include "logic.hpp"
-#include "data_manager.hpp"
 #include <storage/file.hpp> // TODO(MN): Remove it
 
 
@@ -116,6 +115,18 @@ void Logic::resetAnswer()
     m_bestPath.pop();
 }
 
+void Logic::arrangePlayers(const vector<PlayerDescriptor>& _descriptorList)
+{
+  resetMainPlayer();
+
+  for (const PlayerDescriptor& PlayerDescriptor : _descriptorList)
+  {
+    Player*const player = PlayerManager::Generate(PlayerDescriptor);// TODO(MN): Delete players. use unique_ptr
+    chooseMainPlayer(player);
+    m_grid->put(player, player->m_location);
+  }
+}
+
 void Logic::Solve()
 {
   /* Import data from the file. */
@@ -124,15 +135,7 @@ void Logic::Solve()
   const vector<PlayerDescriptor> PlayerDescriptorList = std::get<1>(data);
 
 
-  /* Generate players and arrange. */
-  resetMainPlayer();
-
-  for (const PlayerDescriptor& PlayerDescriptor : PlayerDescriptorList)
-  {
-    Player*const player = PlayerManager::Generate(PlayerDescriptor);// TODO(MN): Delete players. use unique_ptr
-    chooseMainPlayer(player);
-    m_grid->put(player, player->m_location);
-  }
+  arrangePlayers(PlayerDescriptorList);
 
 
   /* Find the best path. */
