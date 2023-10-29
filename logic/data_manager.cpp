@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <vector>
 #include <string_view>
+#include <functional>
 #include "data_manager.hpp"
 #include <storage/file.hpp>
 
@@ -11,6 +12,17 @@ using namespace PlayerManager;
 
 namespace Data
 {
+
+static uint8_t extractPlayersNumber(string_view::iterator& _itrBegin,
+                                    const string_view::iterator& _itrEnd,
+                                    const function<bool(char)>& _comp)
+{
+  string_view::iterator itrEnd = find_if(_itrBegin, _itrEnd, _comp);
+  string temp = string(_itrBegin, itrEnd);
+  _itrBegin = itrEnd + 1;
+  const uint8_t playersNumber = atoi(temp.c_str());
+  return playersNumber;
+}
 
 tuple<uint8_t, vector<PlayerDescriptor>> Import(const string _filePath)
 {
@@ -26,6 +38,7 @@ tuple<uint8_t, vector<PlayerDescriptor>> Import(const string _filePath)
 
     string temp = "";
     string_view::iterator itrBegin = begin(buffer);
+    const string_view::iterator endBufer = end(buffer);
     string_view::iterator itrEnd   = itrBegin;
 
     const auto isSpace = [](char _char)
@@ -37,12 +50,8 @@ tuple<uint8_t, vector<PlayerDescriptor>> Import(const string _filePath)
     {
       return ('\n' == _char);
     };
-// TODO(MN): Use functions to extract items
-    /* Extract number of pieces. */
-    itrEnd = find_if(itrBegin, end(buffer), isLF);
-    temp = string(itrBegin, itrEnd);
-    itrBegin = itrEnd + 1;
-    const uint8_t playersNumber = atoi(temp.c_str());
+
+    const uint8_t playersNumber = extractPlayersNumber(itrBegin, endBufer, isLF);
 
     /* Extraction of Players */
     vector<PlayerDescriptor> players;

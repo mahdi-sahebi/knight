@@ -56,13 +56,15 @@ void Logic::onPlayerIterate(const Location _location)
   {
     m_hitCount++;
     m_score += player->m_type;
-    m_grid.remove(_location);                /* Pick up enemy. */
-    m_grid.remove(m_mainPlayer->m_location); /* Pick up main player. */
+    m_grid.remove(_location);                 /* Pick up enemy. */
+    m_grid.remove(m_mainPlayer->m_location);  /* Pick up main player. */
     m_mainPlayer->move(_location);            /* Put the main player. */
   }
 
   if ((m_movesDepth < m_maxMovesDepth) && canGo)
+  {
     m_mainPlayer->iterateFrom(_location, std::bind(&Logic::onPlayerIterate, this, std::placeholders::_1));
+  }
   else if (m_movesDepth == m_maxMovesDepth)
   {
     if ((m_score > m_bestScore)  ||
@@ -71,7 +73,6 @@ void Logic::onPlayerIterate(const Location _location)
     {
       m_bestScore = m_score;
       m_bestHitCount = m_hitCount;
-      // TODO(MN): Copy the path as the best path
       m_bestPath = m_path;
     }
   }
@@ -80,9 +81,9 @@ void Logic::onPlayerIterate(const Location _location)
   {
     m_hitCount--;
     m_score -= player->m_type;
-    m_grid.remove(_location);              /* Pick up the main player. */
+    m_grid.remove(_location);               /* Pick up the main player. */
     m_mainPlayer->move(lastPlayerLocation); /* Put the main player. */
-    m_grid.put(player, _location);         /* Restore the enemy. */
+    m_grid.put(player, _location);          /* Restore the enemy. */
   }
 
   m_movesDepth--;

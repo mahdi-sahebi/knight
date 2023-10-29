@@ -14,7 +14,6 @@ Player* PlayerManager::Generate(const PlayerDescriptor& _descriptor)
 {
   Player* player = nullptr;
 
-  // TODO(MN): Use open-close principle
   if (Player::Type::PAWN == _descriptor.m_type)
     player = new Pawn(_descriptor.m_color, _descriptor.m_location);
   else if (Player::Type::BISHOP == _descriptor.m_type)
