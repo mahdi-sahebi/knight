@@ -1,15 +1,6 @@
 ﻿#include "grid.hpp"
 
 
-Grid* Grid::m_instance = nullptr;
-
-Grid* Grid::getInstance()
-{
-  if (nullptr == m_instance)
-    m_instance = new Grid();
-  return m_instance;
-}
-
 Grid::Grid()
 {
   clear();
@@ -32,12 +23,12 @@ bool Grid::isEmpty(const Location _location)
   return (nullptr == m_grids[_location.first][_location.second]);
 }
 
-Player* Grid::get(const Location _location)
+std::shared_ptr<Player> Grid::get(const Location _location)
 {
   return m_grids[_location.first][_location.second];
 }
 
-void Grid::put(Player* const _player, const Location _location)
+void Grid::put(const std::shared_ptr<Player> _player, const Location _location)
 {
   m_grids[_location.first][_location.second] = _player;
 }

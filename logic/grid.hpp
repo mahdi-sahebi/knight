@@ -3,25 +3,23 @@
 
 #include <cstdbool>
 #include <cstdint>
+#include <memory>
 #include "common/location.hpp"
 #include "players/player.hpp"
 
 class Grid
 {
 public:
-  static Grid* getInstance();
-  bool    isEmpty(const Location _location);
-  Player* get    (const Location _location);
-  void    remove (const Location _location);
-  void    put    (Player* const _player, const Location _location);
-
-private:
   Grid();
   ~Grid();
-  void clear();
+  bool                    isEmpty(const Location _location);
+  std::shared_ptr<Player> get    (const Location _location);
+  void                    remove (const Location _location);
+  void                    put    (const std::shared_ptr<Player> _player, const Location _location);
 
-  static Grid* m_instance;
-  Player* m_grids[COL_COUNT][ROW_COUNT];// TODO(MN): Use unique_ptr
+private:
+  void clear();
+  std::shared_ptr<Player> m_grids[COL_COUNT][ROW_COUNT];
 };
 
 #endif /* __GRID_H__ */
