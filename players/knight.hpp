@@ -11,6 +11,7 @@ public:
   ~Knight();
   bool canGoTo(const Location _location) override;
   void iterateFrom(const Location _startLocation, const OnIterate _onIterate) override;
+
 private:
 };
 

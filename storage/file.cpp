@@ -15,16 +15,16 @@ File::~File()
 
 bool File::open(const std::string _path)
 {
-  const bool result = std::filesystem::exists(_path);
+  const bool result = true;//std::filesystem::exists(_path);
 
-  if (result)
-  {
+//  if (result)
+//  {
     if (m_file.is_open())
       m_file.close();
 
     m_file.open(_path, OPEN_MODE);
     m_path = _path;
-  }
+//  }
 
   return result;
 }

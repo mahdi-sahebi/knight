@@ -30,16 +30,16 @@ public:
   Player(const Player::Type _type, const Player::Color _color, const Location _location);
   Player() = delete;
   ~Player();
-  bool isEnemy(const Player& _player);
-  bool canHit(const Player& _player);
-  bool move(const Location _location);
-  virtual bool canGoTo(const Location _location) = 0;
+  bool         isEnemy    (const Player& _player);
+  bool         canHit     (const Player& _player);
+  bool         move       (const Location _location);
+  virtual bool canGoTo    (const Location _location) = 0;
   virtual void iterateFrom(const Location _startLocation, const OnIterate _onIterate) = 0;
 
-  mutable Type m_type;
-  mutable Color m_color;
-  mutable Row m_row;
+  mutable Type     m_type;
+  mutable Color    m_color;
   mutable Location m_location;
+
 private:
 };
 

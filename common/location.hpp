@@ -2,6 +2,7 @@
 #define __LOCATION_H__
 
 #include <cstdint>
+#include <string>
 #include <utility>
 
 enum Row : int8_t
@@ -45,6 +46,7 @@ typedef std::pair<int8_t, int8_t> Location;
 
 Location operator+(Location& _a, Location& _b);
 Location operator-(Location& _a, Location& _b);
+// TODO(MN): to/from string operators
 bool isLocationValid(const Location& _location);
 
 #endif /* __LOCATION_H__ */

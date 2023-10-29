@@ -2,6 +2,7 @@
 #define __LOGIC_H__
 
 #include <string>
+#include <stack>
 #include "grid.hpp"
 
 class Logic
@@ -13,9 +14,25 @@ public:
   void Solve();
 
 private:
+  void onPlayerIterate (const Location _location);
+  void resetMainPlayer ();
+  void chooseMainPlayer(Player* _player);
+  void resetAnswer     ();
+  bool isAlphabetLess  (std::stack<Location> _path1, std::stack<Location> _path2);
+
   Grid* m_grid;
   std::string m_filePath;
-  Player* m_knight;
+  Player* m_mainPlayer;
+  uint8_t m_maxMovesDepth;
+  uint8_t m_movesDepth;
+
+  uint8_t m_score;
+  uint8_t m_hitCount;
+  std::stack<Location> m_path;
+
+  uint8_t m_bestScore;
+  uint8_t m_bestHitCount;
+  std::stack<Location> m_bestPath;
 };
 
 #endif /* __LOGIC_H__ */
