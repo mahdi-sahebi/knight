@@ -21,6 +21,7 @@ private:
   void resetAnswer     ();
   bool isAlphabetLess  (std::stack<Location> _path1, std::stack<Location> _path2);
   void arrangePlayers  (const std::vector<PlayerManager::PlayerDescriptor>& _descriptorList);
+  void findBestPath();
 
   Grid* m_grid;
   std::string m_inputFilePath;

@@ -127,6 +127,13 @@ void Logic::arrangePlayers(const vector<PlayerDescriptor>& _descriptorList)
   }
 }
 
+void Logic::findBestPath()
+{
+  resetAnswer();
+  if (0 != m_maxMovesDepth)
+    m_mainPlayer->iterateFrom(m_mainPlayer->m_location, std::bind(&Logic::onPlayerIterate, this, std::placeholders::_1));
+}
+
 void Logic::Solve()
 {
   /* Import data from the file. */
@@ -134,16 +141,8 @@ void Logic::Solve()
   m_maxMovesDepth = std::get<0>(data);
   const vector<PlayerDescriptor> PlayerDescriptorList = std::get<1>(data);
 
-
   arrangePlayers(PlayerDescriptorList);
+  findBestPath();
 
-
-  /* Find the best path. */
-  resetAnswer();
-  if (0 != m_maxMovesDepth)
-    m_mainPlayer->iterateFrom(m_mainPlayer->m_location, std::bind(&Logic::onPlayerIterate, this, std::placeholders::_1));
-
-
-  /* Export result to the file. */
   Data::Export(m_bestPath, m_bestScore, m_outputFilePath);
 }
