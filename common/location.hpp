@@ -49,4 +49,5 @@ Location operator-(Location& _a, Location& _b);
 // TODO(MN): to/from string operators
 bool isLocationValid(const Location& _location);
 
+
 #endif /* __LOCATION_H__ */
