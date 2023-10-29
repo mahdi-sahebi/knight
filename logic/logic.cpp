@@ -1,7 +1,5 @@
 #include <cassert>
 #include "logic.hpp"
-#include "data_manager.hpp"
-#include <storage/file.hpp> // TODO(MN): Remove it
 
 
 using namespace std;
@@ -10,9 +8,9 @@ using namespace PlayerManager;
 
 
 Logic::Logic(const string _inputFilePath, const std::string _outputFilePath) :
-  m_mainPlayer(nullptr), m_inputFilePath(_inputFilePath), m_outputFilePath(_outputFilePath)
+  m_inputFilePath(_inputFilePath), m_outputFilePath(_outputFilePath), m_mainPlayer(nullptr)
 {
-  m_grid = Grid::getInstance();
+
 }
 
 Logic::~Logic()
@@ -48,7 +46,7 @@ void Logic::onPlayerIterate(const Location _location)
   m_path.push(_location);
   assert(m_movesDepth <= m_maxMovesDepth);
 
-  Player*const player = m_grid->get(_location);
+  const std::shared_ptr<Player> player = m_grid.get(_location);
   const bool canGo  = (nullptr == player) || m_mainPlayer->isEnemy(*player);
   const bool canHit = (nullptr != player) && m_mainPlayer->isEnemy(*player);
   const Location lastPlayerLocation = m_mainPlayer->m_location;
@@ -57,13 +55,15 @@ void Logic::onPlayerIterate(const Location _location)
   {
     m_hitCount++;
     m_score += player->m_type;
-    m_grid->remove(_location);                /* Pick up enemy. */
-    m_grid->remove(m_mainPlayer->m_location); /* Pick up main player. */
+    m_grid.remove(_location);                 /* Pick up enemy. */
+    m_grid.remove(m_mainPlayer->m_location);  /* Pick up main player. */
     m_mainPlayer->move(_location);            /* Put the main player. */
   }
 
   if ((m_movesDepth < m_maxMovesDepth) && canGo)
+  {
     m_mainPlayer->iterateFrom(_location, std::bind(&Logic::onPlayerIterate, this, std::placeholders::_1));
+  }
   else if (m_movesDepth == m_maxMovesDepth)
   {
     if ((m_score > m_bestScore)  ||
@@ -72,7 +72,6 @@ void Logic::onPlayerIterate(const Location _location)
     {
       m_bestScore = m_score;
       m_bestHitCount = m_hitCount;
-      // TODO(MN): Copy the path as the best path
       m_bestPath = m_path;
     }
   }
@@ -81,9 +80,9 @@ void Logic::onPlayerIterate(const Location _location)
   {
     m_hitCount--;
     m_score -= player->m_type;
-    m_grid->remove(_location);              /* Pick up the main player. */
+    m_grid.remove(_location);               /* Pick up the main player. */
     m_mainPlayer->move(lastPlayerLocation); /* Put the main player. */
-    m_grid->put(player, _location);         /* Restore the enemy. */
+    m_grid.put(player, _location);          /* Restore the enemy. */
   }
 
   m_movesDepth--;
@@ -95,7 +94,7 @@ void Logic::resetMainPlayer()
   m_mainPlayer = nullptr;
 }
 
-void Logic::chooseMainPlayer(Player* _player)
+void Logic::chooseMainPlayer(std::shared_ptr<Player> _player)
 {
   /* The first player is the Knight */
   if (nullptr == m_mainPlayer)
@@ -116,6 +115,25 @@ void Logic::resetAnswer()
     m_bestPath.pop();
 }
 
+void Logic::arrangePlayers(const vector<PlayerDescriptor>& _descriptorList)
+{
+  resetMainPlayer();
+
+  for (const PlayerDescriptor& playerDescriptor : _descriptorList)
+  {
+    const std::shared_ptr<Player> player(PlayerManager::Generate(playerDescriptor));
+    chooseMainPlayer(player);
+    m_grid.put(player, player->m_location);
+  }
+}
+
+void Logic::findBestPath()
+{
+  resetAnswer();
+  if (0 != m_maxMovesDepth)
+    m_mainPlayer->iterateFrom(m_mainPlayer->m_location, std::bind(&Logic::onPlayerIterate, this, std::placeholders::_1));
+}
+
 void Logic::Solve()
 {
   /* Import data from the file. */
@@ -123,24 +141,8 @@ void Logic::Solve()
   m_maxMovesDepth = std::get<0>(data);
   const vector<PlayerDescriptor> PlayerDescriptorList = std::get<1>(data);
 
+  arrangePlayers(PlayerDescriptorList);
+  findBestPath();
 
-  /* Generate players and arrange. */
-  resetMainPlayer();
-
-  for (const PlayerDescriptor& PlayerDescriptor : PlayerDescriptorList)
-  {
-    Player*const player = PlayerManager::Generate(PlayerDescriptor);// TODO(MN): Delete players. use unique_ptr
-    chooseMainPlayer(player);
-    m_grid->put(player, player->m_location);
-  }
-
-
-  /* Find the best path. */
-  resetAnswer();
-  if (0 != m_maxMovesDepth)
-    m_mainPlayer->iterateFrom(m_mainPlayer->m_location, std::bind(&Logic::onPlayerIterate, this, std::placeholders::_1));
-
-
-  /* Export result to the file. */
   Data::Export(m_bestPath, m_bestScore, m_outputFilePath);
 }

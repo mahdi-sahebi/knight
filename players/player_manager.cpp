@@ -1,3 +1,5 @@
+#include <functional>
+#include <map>
 #include "player_manager.hpp"
 
 
@@ -10,23 +12,51 @@ PlayerDescriptor::PlayerDescriptor(Player::Color _color, Player::Type _type, Loc
 
 }
 
+static Player* Generate_Pawn(const PlayerDescriptor& _descriptor)
+{
+  return new Pawn(_descriptor.m_color, _descriptor.m_location);
+}
+
+static Player* Generate_Bishop(const PlayerDescriptor& _descriptor)
+{
+  return new Bishop(_descriptor.m_color, _descriptor.m_location);
+}
+
+static Player* Generate_Knight(const PlayerDescriptor& _descriptor)
+{
+  return new Knight(_descriptor.m_color, _descriptor.m_location);
+}
+
+static Player* Generate_Rook(const PlayerDescriptor& _descriptor)
+{
+  return new Rook(_descriptor.m_color, _descriptor.m_location);
+}
+
+static Player* Generate_Queen(const PlayerDescriptor& _descriptor)
+{
+  return new Queen(_descriptor.m_color, _descriptor.m_location);
+}
+
+static Player* Generate_King(const PlayerDescriptor& _descriptor)
+{
+  return new King(_descriptor.m_color, _descriptor.m_location);
+}
+
 Player* PlayerManager::Generate(const PlayerDescriptor& _descriptor)
 {
   Player* player = nullptr;
 
-  // TODO(MN): Use open-close principle
-  if (Player::Type::PAWN == _descriptor.m_type)
-    player = new Knight(_descriptor.m_color, _descriptor.m_location);
-  else if (Player::Type::BISHOP == _descriptor.m_type)
-    player = new Bishop(_descriptor.m_color, _descriptor.m_location);
-  else if (Player::Type::KNIGHT == _descriptor.m_type)
-    player = new Knight(_descriptor.m_color, _descriptor.m_location);
-  else if (Player::Type::ROOK == _descriptor.m_type)
-    player = new Rook(_descriptor.m_color, _descriptor.m_location);
-  else if (Player::Type::QUEEN == _descriptor.m_type)
-    player = new Queen(_descriptor.m_color, _descriptor.m_location);
-  else if (Player::Type::KING == _descriptor.m_type)
-    player = new King(_descriptor.m_color, _descriptor.m_location);
+  std::map<Player::Type, std::function<Player*(const PlayerDescriptor&)>> generators =
+  {
+    std::make_pair(Player::Type::PAWN,   Generate_Pawn),
+    std::make_pair(Player::Type::BISHOP, Generate_Bishop),
+    std::make_pair(Player::Type::KNIGHT, Generate_Knight),
+    std::make_pair(Player::Type::ROOK,   Generate_Rook),
+    std::make_pair(Player::Type::QUEEN,  Generate_Queen),
+    std::make_pair(Player::Type::KING,   Generate_King),
+  };
+
+  player = generators[_descriptor.m_type](_descriptor);
 
   return player;
 }
