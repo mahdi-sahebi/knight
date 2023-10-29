@@ -13,9 +13,9 @@ using namespace PlayerManager;
 namespace Data
 {
 
-static uint8_t extractPlayersNumber(string_view::iterator& _itrBegin,
+static uint8_t extractPlayersNumber(string_view::iterator&       _itrBegin,
                                     const string_view::iterator& _itrEnd,
-                                    const function<bool(char)>& _comp)
+                                    const function<bool(char)>&  _comp)
 {
   const string_view::iterator itrEnd = find_if(_itrBegin, _itrEnd, _comp);
   const string temp = string(_itrBegin, itrEnd);
@@ -24,9 +24,9 @@ static uint8_t extractPlayersNumber(string_view::iterator& _itrBegin,
   return playersNumber;
 }
 
-static Player::Color extractColor(string_view::iterator& _itrBegin,
+static Player::Color extractColor(string_view::iterator&       _itrBegin,
                                   const string_view::iterator& _itrEnd,
-                                  const function<bool(char)>& _comp)
+                                  const function<bool(char)>&  _comp)
 {
   const string_view::iterator itrEnd = find_if(_itrBegin, _itrEnd, _comp);
   const string temp = string(_itrBegin, itrEnd);
@@ -35,9 +35,9 @@ static Player::Color extractColor(string_view::iterator& _itrBegin,
   return color;
 }
 
-static Player::Type extractType(string_view::iterator& _itrBegin,
+static Player::Type extractType(string_view::iterator&       _itrBegin,
                                 const string_view::iterator& _itrEnd,
-                                const function<bool(char)>& _comp)
+                                const function<bool(char)>&  _comp)
 {
   const string_view::iterator itrEnd = find_if(_itrBegin, _itrEnd, _comp);
   const string temp = string(_itrBegin, itrEnd);
@@ -46,9 +46,9 @@ static Player::Type extractType(string_view::iterator& _itrBegin,
   return type;
 }
 
-static Location extractLocation(string_view::iterator& _itrBegin,
-                                             const string_view::iterator& _itrEnd,
-                                             const function<bool(char)>& _comp)
+static Location extractLocation(string_view::iterator&       _itrBegin,
+                                const string_view::iterator& _itrEnd,
+                                const function<bool(char)>&  _comp)
 {
   const string_view::iterator itrEnd = find_if(_itrBegin, _itrEnd, _comp);
   const string temp = string(_itrBegin, itrEnd);
@@ -120,7 +120,7 @@ void Export(std::stack<Location> _bestPath, const uint8_t _bestScore, const std:
     while (!_bestPath.empty())
     {
       auto location = _bestPath.top();
-      // TODO(MN): operator
+      // TODO(MN): define operator for Location
       output = string(1, 'a' + location.first) + string(1, '0' + location.second + 1) + "\n" + output;
 
       _bestPath.pop();

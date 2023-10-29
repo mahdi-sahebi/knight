@@ -1,6 +1,5 @@
 #include <cassert>
 #include "logic.hpp"
-#include <storage/file.hpp> // TODO(MN): Remove it
 
 
 using namespace std;
