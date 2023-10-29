@@ -9,10 +9,9 @@ using namespace Data;
 using namespace PlayerManager;
 
 
-Logic::Logic(const string _filePath) :
-  m_mainPlayer(nullptr)
+Logic::Logic(const string _inputFilePath, const std::string _outputFilePath) :
+  m_mainPlayer(nullptr), m_inputFilePath(_inputFilePath), m_outputFilePath(_outputFilePath)
 {
-  m_filePath = _filePath;
   m_grid = Grid::getInstance();
 }
 
@@ -87,7 +86,6 @@ void Logic::onPlayerIterate(const Location _location)
     m_grid->put(player, _location);         /* Restore the enemy. */
   }
 
-
   m_movesDepth--;
   m_path.pop();
 }
@@ -117,21 +115,21 @@ void Logic::resetAnswer()
   while (!m_bestPath.empty())
     m_bestPath.pop();
 }
-                                     #include <iostream>
+
 void Logic::Solve()
 {
   /* Import data from the file. */
-  auto const data = Data::Import(m_filePath);
+  auto const data = Data::Import(m_inputFilePath);
   m_maxMovesDepth = std::get<0>(data);
-  const vector<PlayerInfo> playerInfoList = std::get<1>(data);
+  const vector<PlayerDescriptor> PlayerDescriptorList = std::get<1>(data);
 
 
   /* Generate players and arrange. */
   resetMainPlayer();
 
-  for (const PlayerInfo& playerInfo : playerInfoList)
+  for (const PlayerDescriptor& PlayerDescriptor : PlayerDescriptorList)
   {
-    Player* player = PlayerManager::Generate(playerInfo);// TODO(MN): Delete players. use unique_ptr
+    Player*const player = PlayerManager::Generate(PlayerDescriptor);// TODO(MN): Delete players. use unique_ptr
     chooseMainPlayer(player);
     m_grid->put(player, player->m_location);
   }
@@ -144,24 +142,5 @@ void Logic::Solve()
 
 
   /* Export result to the file. */
-  string output = "";
-  while (!m_bestPath.empty())
-  {
-    auto location = m_bestPath.top();
-    // TODO(MN): operator
-    output = string(1, 'a' + location.first) + string(1, '0' + location.second + 1) + "\n" + output;
-
-    m_bestPath.pop();
-  }
-  if (0 == m_bestScore)
-    output = "!";
-  // TODO(MN): fix the file
-  std::cout << "Score : " << uint32_t(m_bestScore) << ", Hits: " << uint32_t(m_bestHitCount) << std::endl;
-  std::cout << output << std::endl;
-  File file;
-  file.open("/home/mahdi/out.txt");
-  file.write(output.c_str(), output.length());
-  file.close();
-
-  int x = 0;
+  Data::Export(m_bestPath, m_bestScore, m_outputFilePath);
 }

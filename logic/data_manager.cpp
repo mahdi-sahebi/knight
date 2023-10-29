@@ -12,12 +12,12 @@ using namespace PlayerManager;
 namespace Data
 {
 
-tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
+tuple<uint8_t, vector<PlayerDescriptor>> Import(const string _filePath)
 {
-  tuple<uint8_t, vector<PlayerInfo>> data;
+  tuple<uint8_t, vector<PlayerDescriptor>> data;
 
   File file;
-  if (file.open(_filePath))
+  if (file.open(_filePath, File::Mode::READ))
   {
     string readBuffer;
     file.read(readBuffer);
@@ -37,7 +37,7 @@ tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
     {
       return ('\n' == _char);
     };
-
+// TODO(MN): Use functions to extract items
     /* Extract number of pieces. */
     itrEnd = find_if(itrBegin, end(buffer), isLF);
     temp = string(itrBegin, itrEnd);
@@ -45,7 +45,7 @@ tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
     const uint8_t playersNumber = atoi(temp.c_str());
 
     /* Extraction of Players */
-    vector<PlayerInfo> players;
+    vector<PlayerDescriptor> players;
     for (uint8_t playerIdx = 0; playerIdx < playersNumber; playerIdx++)
     {
       /* Color */
@@ -69,7 +69,7 @@ tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
       const Column column = static_cast<Column>(temp.c_str()[0] - 'a');
       const Row    row    = static_cast<Row>   (atoi(temp.substr(1, 1).c_str()) - 1);
 
-      players.push_back(PlayerInfo(color, type, Location(column, row)));
+      players.push_back(PlayerDescriptor(color, type, Location(column, row)));
     }
 
     /* Extraction of Movement */
@@ -80,6 +80,30 @@ tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
   }
 
   return data;
+}
+
+void Export(std::stack<Location> _bestPath, const uint8_t _bestScore, const std::string _filePath)
+{
+  string output = "";
+
+  if (0 != _bestScore)
+  {
+    while (!_bestPath.empty())
+    {
+      auto location = _bestPath.top();
+      // TODO(MN): operator
+      output = string(1, 'a' + location.first) + string(1, '0' + location.second + 1) + "\n" + output;
+
+      _bestPath.pop();
+    }
+  }
+  else
+    output = "!";
+
+  File file;
+  file.open(_filePath, File::Mode::WRITE);
+  file.write(output.c_str(), output.length());
+  file.close();
 }
 
 }

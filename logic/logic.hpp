@@ -8,7 +8,7 @@
 class Logic
 {
 public:
-  Logic(const std::string _filePath);
+  Logic(const std::string _inputFilePath, const std::string _outputFilePath);
   Logic() = delete;
   ~Logic();
   void Solve();
@@ -21,7 +21,8 @@ private:
   bool isAlphabetLess  (std::stack<Location> _path1, std::stack<Location> _path2);
 
   Grid* m_grid;
-  std::string m_filePath;
+  std::string m_inputFilePath;
+  std::string m_outputFilePath;
   Player* m_mainPlayer;
   uint8_t m_maxMovesDepth;
   uint8_t m_movesDepth;
