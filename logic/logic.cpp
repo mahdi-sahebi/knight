@@ -9,9 +9,9 @@ using namespace PlayerManager;
 
 
 Logic::Logic(const string _inputFilePath, const std::string _outputFilePath) :
-  m_mainPlayer(nullptr), m_inputFilePath(_inputFilePath), m_outputFilePath(_outputFilePath)
+  m_inputFilePath(_inputFilePath), m_outputFilePath(_outputFilePath), m_mainPlayer(nullptr)
 {
-  m_grid = Grid::getInstance();
+
 }
 
 Logic::~Logic()
@@ -47,7 +47,7 @@ void Logic::onPlayerIterate(const Location _location)
   m_path.push(_location);
   assert(m_movesDepth <= m_maxMovesDepth);
 
-  Player*const player = m_grid->get(_location);
+  const std::shared_ptr<Player> player = m_grid.get(_location);
   const bool canGo  = (nullptr == player) || m_mainPlayer->isEnemy(*player);
   const bool canHit = (nullptr != player) && m_mainPlayer->isEnemy(*player);
   const Location lastPlayerLocation = m_mainPlayer->m_location;
@@ -56,8 +56,8 @@ void Logic::onPlayerIterate(const Location _location)
   {
     m_hitCount++;
     m_score += player->m_type;
-    m_grid->remove(_location);                /* Pick up enemy. */
-    m_grid->remove(m_mainPlayer->m_location); /* Pick up main player. */
+    m_grid.remove(_location);                /* Pick up enemy. */
+    m_grid.remove(m_mainPlayer->m_location); /* Pick up main player. */
     m_mainPlayer->move(_location);            /* Put the main player. */
   }
 
@@ -80,9 +80,9 @@ void Logic::onPlayerIterate(const Location _location)
   {
     m_hitCount--;
     m_score -= player->m_type;
-    m_grid->remove(_location);              /* Pick up the main player. */
+    m_grid.remove(_location);              /* Pick up the main player. */
     m_mainPlayer->move(lastPlayerLocation); /* Put the main player. */
-    m_grid->put(player, _location);         /* Restore the enemy. */
+    m_grid.put(player, _location);         /* Restore the enemy. */
   }
 
   m_movesDepth--;
@@ -94,7 +94,7 @@ void Logic::resetMainPlayer()
   m_mainPlayer = nullptr;
 }
 
-void Logic::chooseMainPlayer(Player* _player)
+void Logic::chooseMainPlayer(std::shared_ptr<Player> _player)
 {
   /* The first player is the Knight */
   if (nullptr == m_mainPlayer)
@@ -119,11 +119,11 @@ void Logic::arrangePlayers(const vector<PlayerDescriptor>& _descriptorList)
 {
   resetMainPlayer();
 
-  for (const PlayerDescriptor& PlayerDescriptor : _descriptorList)
+  for (const PlayerDescriptor& playerDescriptor : _descriptorList)
   {
-    Player*const player = PlayerManager::Generate(PlayerDescriptor);// TODO(MN): Delete players. use unique_ptr
+    const std::shared_ptr<Player> player(PlayerManager::Generate(playerDescriptor));
     chooseMainPlayer(player);
-    m_grid->put(player, player->m_location);
+    m_grid.put(player, player->m_location);
   }
 }
 
