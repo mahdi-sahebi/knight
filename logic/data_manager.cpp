@@ -17,7 +17,7 @@ tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
   tuple<uint8_t, vector<PlayerInfo>> data;
 
   File file;
-  if (file.open(_filePath))
+  if (file.open(_filePath, File::Mode::READ))
   {
     string readBuffer;
     file.read(readBuffer);

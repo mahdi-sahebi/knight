@@ -87,7 +87,6 @@ void Logic::onPlayerIterate(const Location _location)
     m_grid->put(player, _location);         /* Restore the enemy. */
   }
 
-
   m_movesDepth--;
   m_path.pop();
 }
@@ -117,7 +116,7 @@ void Logic::resetAnswer()
   while (!m_bestPath.empty())
     m_bestPath.pop();
 }
-                                     #include <iostream>
+
 void Logic::Solve()
 {
   /* Import data from the file. */
@@ -155,11 +154,9 @@ void Logic::Solve()
   }
   if (0 == m_bestScore)
     output = "!";
-  // TODO(MN): fix the file
-  std::cout << "Score : " << uint32_t(m_bestScore) << ", Hits: " << uint32_t(m_bestHitCount) << std::endl;
-  std::cout << output << std::endl;
+
   File file;
-  file.open("/home/mahdi/out.txt");
+  file.open("/home/mahdi/out.txt", File::Mode::WRITE);
   file.write(output.c_str(), output.length());
   file.close();
 
