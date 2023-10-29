@@ -10,7 +10,7 @@
 
 namespace Data
 {
-std::tuple<uint8_t, std::vector<PlayerManager::PlayerInfo>> Import(const std::string _filePath);
+std::tuple<uint8_t, std::vector<PlayerManager::PlayerDescriptor>> Import(const std::string _filePath);
 void Export(std::stack<Location> _bestPath, const uint8_t _bestScore, const std::string _filePath);
 }
 

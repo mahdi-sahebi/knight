@@ -121,15 +121,15 @@ void Logic::Solve()
   /* Import data from the file. */
   auto const data = Data::Import(m_inputFilePath);
   m_maxMovesDepth = std::get<0>(data);
-  const vector<PlayerInfo> playerInfoList = std::get<1>(data);
+  const vector<PlayerDescriptor> PlayerDescriptorList = std::get<1>(data);
 
 
   /* Generate players and arrange. */
   resetMainPlayer();
 
-  for (const PlayerInfo& playerInfo : playerInfoList)
+  for (const PlayerDescriptor& PlayerDescriptor : PlayerDescriptorList)
   {
-    Player* player = PlayerManager::Generate(playerInfo);// TODO(MN): Delete players. use unique_ptr
+    Player*const player = PlayerManager::Generate(PlayerDescriptor);// TODO(MN): Delete players. use unique_ptr
     chooseMainPlayer(player);
     m_grid->put(player, player->m_location);
   }

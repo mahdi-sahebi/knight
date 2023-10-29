@@ -4,13 +4,13 @@
 using namespace PlayerManager;
 
 
-PlayerInfo::PlayerInfo(Player::Color _color, Player::Type _type, Location _location) :
+PlayerDescriptor::PlayerDescriptor(Player::Color _color, Player::Type _type, Location _location) :
   m_color(_color), m_type(_type), m_location(_location)
 {
 
 }
 
-Player* PlayerManager::Generate(const PlayerInfo& _descriptor)
+Player* PlayerManager::Generate(const PlayerDescriptor& _descriptor)
 {
   Player* player = nullptr;
 

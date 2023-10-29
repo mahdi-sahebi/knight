@@ -12,9 +12,9 @@ using namespace PlayerManager;
 namespace Data
 {
 
-tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
+tuple<uint8_t, vector<PlayerDescriptor>> Import(const string _filePath)
 {
-  tuple<uint8_t, vector<PlayerInfo>> data;
+  tuple<uint8_t, vector<PlayerDescriptor>> data;
 
   File file;
   if (file.open(_filePath, File::Mode::READ))
@@ -45,7 +45,7 @@ tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
     const uint8_t playersNumber = atoi(temp.c_str());
 
     /* Extraction of Players */
-    vector<PlayerInfo> players;
+    vector<PlayerDescriptor> players;
     for (uint8_t playerIdx = 0; playerIdx < playersNumber; playerIdx++)
     {
       /* Color */
@@ -69,7 +69,7 @@ tuple<uint8_t, vector<PlayerInfo>> Import(const string _filePath)
       const Column column = static_cast<Column>(temp.c_str()[0] - 'a');
       const Row    row    = static_cast<Row>   (atoi(temp.substr(1, 1).c_str()) - 1);
 
-      players.push_back(PlayerInfo(color, type, Location(column, row)));
+      players.push_back(PlayerDescriptor(color, type, Location(column, row)));
     }
 
     /* Extraction of Movement */
